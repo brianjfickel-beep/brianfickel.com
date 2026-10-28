@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Advisor's Brief Builder | Brian Fickel</title>
+<meta name="description" content="A free tool for people new to advising senior leaders: decide what to bring the boss, and build a brief they can act on. Runs in your browser.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../../img/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<style>
+.tool main{max-width:860px;margin:0 auto;padding:40px 20px 64px}
+.tool h1{font:600 2rem/1.25 "Libre Baskerville",Georgia,serif;color:var(--maroon);margin:0 0 8px}
+.kicker{font:700 .8rem/1 "Montserrat",sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+.notice{background:#fff;border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:.95rem}
+.notice strong{color:var(--maroon)}
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 8px}
+.steps button{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font:600 .92rem "Source Sans 3",sans-serif;cursor:pointer;color:var(--ink)}
+.steps button.on{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-top:14px}
+.panel h2{font:600 1.35rem/1.3 "Libre Baskerville",Georgia,serif;color:var(--maroon);margin:0 0 6px;letter-spacing:0;text-transform:none}
+.panel>p.sub{color:var(--muted);margin:0 0 14px}
+label.f{display:block;font-weight:600;margin:14px 0 4px}
+label.f small{display:block;font-weight:400;color:var(--muted)}
+input[type=text],input[type=datetime-local],select,textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font:15px/1.45 "Source Sans 3",sans-serif;background:var(--cream)}
+textarea{min-height:76px;resize:vertical}
+.why{margin:14px 0 4px;background:var(--cream);border-left:4px solid var(--maroon);border-radius:6px;padding:10px 14px;font-size:.93rem;color:var(--ink)}
+.why b{color:var(--maroon)}
+body.quick .why{display:none}
+.mode{display:flex;gap:10px;align-items:center;font-size:.92rem;color:var(--muted);margin-top:6px}
+.pick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
+.pick button{text-align:left;background:var(--cream);border:1px solid var(--line);border-radius:10px;padding:16px;cursor:pointer;font:15px/1.4 "Source Sans 3",sans-serif;color:var(--ink)}
+.pick button b{display:block;font:600 1.05rem "Libre Baskerville",Georgia,serif;color:var(--maroon);margin-bottom:4px}
+.pick button.on{border-color:var(--maroon);background:var(--gold-soft)}
+.pick button:disabled{opacity:.55;cursor:not-allowed}
+.item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--cream)}
+.item .top{display:flex;gap:10px}
+.item .top input{flex:1}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin-top:10px;font-size:.93rem}
+.checks label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+.checks input{margin-top:4px}
+.x{background:none;border:0;color:var(--muted);cursor:pointer;font-size:1.2rem;padding:0 6px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+button.primary,button.ghost{font:700 1rem "Source Sans 3",sans-serif;border-radius:999px;padding:11px 22px;cursor:pointer}
+.primary{background:var(--maroon);color:#fff;border:0}.primary:hover{background:var(--maroon-2)}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.bin{display:inline-block;font:700 .7rem/1 "Montserrat",sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:999px;margin-left:6px}
+.b-now{background:#8b1c1c;color:#fff}.b-week{background:#e8b33a;color:#3a2600}.b-handle{background:#d9e6da;color:#2f5a35}
+#out{margin-top:22px}
+.brief{background:#fff;border:2px solid var(--maroon);border-radius:12px;padding:22px 26px}
+.brief h3{font:600 1.2rem "Libre Baskerville",Georgia,serif;color:var(--maroon);margin:0 0 4px}
+.brief h4{font:700 .8rem/1 "Montserrat",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:18px 0 6px}
+.brief p,.brief li{margin:4px 0}
+.brief .meta{color:var(--muted);font-size:.9rem}
+.flags{margin-top:16px}
+.flag{border-left:5px solid #e0a106;background:#fffaf0;border-radius:6px;padding:8px 12px;margin:6px 0;font-size:.93rem}
+.flag.red{border-left-color:#b02a2a;background:#fdf3f3}
+.flag.ok{border-left-color:#3d8b4a;background:#f3faf4}
+.tests label{display:flex;gap:8px;margin:6px 0;cursor:pointer}
+.hidden{display:none!important}
+@media (max-width:700px){.pick{grid-template-columns:1fr}.checks{grid-template-columns:1fr}}
+@media print{.private,#readOut,header.top,.notice,.steps,.panel,.row,footer,.mode,.kicker,h1,.lede,.flags .note{display:none!important}#out{margin:0}.brief{border:0;padding:0}}
+</style></head>
+<body class="tool">
+<header class="top"><div class="wrap"><a href="../../index.html"><img src="../../img/logo-mark.png" alt="BF"></a><nav><a href="../../index.html">Home</a></nav></div></header>
+<main>
+<p class="kicker">Practitioner tool &middot; Version 1 (beta)</p>
+<h1>Advisor&rsquo;s Brief Builder</h1>
+<p class="lede">For people new to the table: young officers advising at the two- to four-star level, and anyone new to the C-suite. Decide what your boss needs to hear, then build a brief they can act on.</p>
+<div class="mode"><label><input type="checkbox" id="quick"> Quick mode (hide the coaching notes)</label></div>
+
+<div class="notice"><strong>Never enter classified, CUI or sensitive information.</strong> Use plain, unclassified descriptions. This page has no server and sends nothing anywhere. Your principal profile is saved in this browser only if you ask it to be.</div>
+
+<div class="steps" role="tablist">
+<button class="on" data-go="p1">1. Your principal</button>
+<button data-go="p2">2. Situation</button>
+<button data-go="p3" id="s3">3. Build</button>
+<button data-go="p4">4. Pressure test and delivery</button>
+</div>
+
+<!-- STEP 1 -->
+<section class="panel" id="p1">
+<h2>Know your principal</h2>
+<p class="sub">Same message, different delivery. Fill this in once.</p>
+<div class="why"><b>Why this matters.</b> The best answer in the room does nothing if it reaches the wrong person, at the wrong time, in a form they can&rsquo;t use. Start with the person.</div>
+<label class="f">Title or role <small>Generic is fine: "commanding general," "CEO," "agency head."</small></label><input type="text" id="pr_title">
+<label class="f">How do they take in information?</label>
+<select id="pr_format"><option value="read">Reads: wants it in writing first</option><option value="talk">Talks: wants a conversation</option><option value="both">Both: a short read-ahead, then a conversation</option></select>
+<label class="f">How much detail?</label>
+<select id="pr_detail"><option value="bottom">Bottom line only; will ask for more</option><option value="some">Bottom line plus the key reasons</option><option value="deep">Wants the full picture and the data</option></select>
+<label class="f">Channel they check first</label>
+<select id="pr_channel"><option>Phone or text</option><option>Email</option><option>In person</option><option>Through the chief of staff or executive officer</option></select>
+<label class="f">When are they most receptive? <small>"Early morning," "after the daily update," "never right before a public event."</small></label><input type="text" id="pr_time">
+<label class="f">How do they take disagreement?</label>
+<select id="pr_dissent"><option value="private">Privately, one on one</option><option value="room">Openly, in the room is fine</option><option value="unknown">Not sure yet</option></select>
+<label class="f">Topics that set them off, or that they care about most</label><input type="text" id="pr_triggers">
+<div class="why"><b>Why this matters.</b> Trust comes before influence. Leaders weigh advice by what they think of the person giving it. Learn how they work before you try to change what they decide.</div>
+<details id="deep" style="margin-top:18px;border:1px solid var(--line);border-radius:10px;padding:12px 16px;background:var(--cream)">
+<summary style="cursor:pointer;font-weight:700;color:var(--maroon)">Read your principal (optional, deeper)</summary>
+<div class="why"><b>Why this matters.</b> Two leaders can want the same outcome and need completely different handling. This section helps you name how your principal operates, based on what you&rsquo;ve actually seen them do, and what tends to work with that style. Hold the read loosely. Advisors who label too early stop seeing. The read is for you only and never appears in the brief.</div>
+<label class="f">What have you seen them do? <small>Check only what you&rsquo;ve observed yourself, more than once.</small></label>
+<div class="checks" id="ind"></div>
+<label class="f" style="margin-top:18px">Leader traits <small>Rate only what you&rsquo;ve seen evidence of. Leave the rest at "Don&rsquo;t know."</small></label>
+<div id="traits"></div>
+<label class="f">Where are they in their tenure?</label>
+<select id="season"><option value="">Don&rsquo;t know</option><option value="mandate">New: acting on what they were brought in to do</option><option value="experiment">Early: trying things out</option><option value="theme">Settling: picking the theme they&rsquo;ll be known for</option><option value="converge">Established: committed to their path, making steady adjustments</option><option value="stale">Long-tenured: harder to reach with new information</option></select>
+<label class="f">How long do they expect to be in the job?</label>
+<select id="horizon"><option value="">Don&rsquo;t know</option><option value="rotate">A set tour (two to three years), then moving on</option><option value="terminal">Final job before retirement</option><option value="long">Open-ended or long-term</option><option value="appointee">Political appointee</option></select>
+<label class="f">Warning signs <small>Check any you&rsquo;ve seen repeatedly.</small></label>
+<div class="checks"><label><input type="checkbox" class="ab"> Belittles people in front of others</label><label><input type="checkbox" class="ab"> Punishes unpredictably or out of proportion</label><label><input type="checkbox" class="ab"> Shuts down initiative; people below have gone quiet</label><label><input type="checkbox" class="ab"> Takes credit, assigns blame downward</label></div>
+<label class="f">How confident are you in this read?</label>
+<select id="readconf"><option value="low">Low: one or two interactions</option><option value="med">Medium: a pattern across three or more interactions</option><option value="high">High: a pattern across different situations, over time</option></select>
+<div class="row"><button class="ghost" type="button" id="readBtn">Show my read</button></div>
+<div id="readOut"></div>
+</details>
+<label class="f" style="font-weight:400"><input type="checkbox" id="remember"> Remember this profile in this browser (stored only on this device)</label>
+<div class="row"><button class="primary" type="button" data-go="p2">Next: situation</button></div>
+</section>
+
+<!-- STEP 2 -->
+<section class="panel hidden" id="p2">
+<h2>What are you bringing them?</h2>
+<p class="sub">Pick the situation. Each one has its own path.</p>
+<div class="pick">
+<button type="button" data-sit="portfolio"><b>Portfolio update</b>You&rsquo;re tracking a lot of things. What do they need to hear, and what should you handle?</button>
+<button type="button" data-sit="crisis"><b>Crisis</b>Something just happened and they need to decide fast.</button>
+<button type="button" data-sit="recommend"><b>Major recommendation</b>A new strategy or a big change, such as a new stakeholder engagement plan.</button>
+</div>
+</section>
+
+<!-- STEP 3a PORTFOLIO -->
+<section class="panel hidden" id="p3-portfolio">
+<h2>Portfolio triage</h2>
+<p class="sub">List what&rsquo;s on your plate. For each item, check what applies. The tool sorts each one into <span class="bin b-now">Tell now</span> <span class="bin b-week">Weekly update</span> or <span class="bin b-handle">Handle it</span></p>
+<div class="why"><b>Why this matters.</b> Sending more updates won&rsquo;t make you more valuable. Your boss&rsquo;s attention is the scarcest thing in the building, and part of your job is protecting it. The other part is making sure they never get surprised by something they should have heard from you first.</div>
+<div id="items"></div>
+<div class="row"><button class="ghost" type="button" id="add">+ Add an item</button><button class="primary" type="button" id="runP">Sort and build the update</button></div>
+</section>
+
+<!-- STEP 3b CRISIS -->
+<section class="panel hidden" id="p3-crisis">
+<h2>Crisis brief</h2>
+<p class="sub">Shape the conditions for their decision. Don&rsquo;t try to make it for them.</p>
+<div class="why"><b>Why this matters.</b> In a crisis, your principal&rsquo;s most valuable asset is decision space: enough clear information, and enough time, to choose well. Separate what you know from what you think. State your confidence out loud. Frequent updates only help if they change the picture.</div>
+<label class="f">What happened, in one sentence</label><input type="text" id="c_what">
+<label class="f">Verified facts <small>One per line. Only what you&rsquo;ve confirmed.</small></label><textarea id="c_facts"></textarea>
+<label class="f">Key unknowns <small>One per line. What you still need to find out.</small></label><textarea id="c_unknowns"></textarea>
+<label class="f">Credible worst case <small>Not the nightmare. The bad outcome a reasonable person would plan for.</small></label><input type="text" id="c_worst">
+<label class="f">How long until they have to decide or act?</label>
+<select id="c_window"><option>Within the hour</option><option>Today</option><option>Within 72 hours</option><option>This week</option></select>
+<label class="f">Do we understand what&rsquo;s causing this?</label>
+<select id="c_cause"><option value="clear">Yes, it&rsquo;s clear, and there&rsquo;s a standard way to handle it</option><option value="experts">Partly. Experts can figure it out with some analysis</option><option value="complex">No. We&rsquo;ll only understand it by trying things and watching</option><option value="chaos">No, and there&rsquo;s no time to figure it out. We need to stop the bleeding</option></select>
+<div class="why"><b>Why this matters.</b> Name the kind of problem out loud. If it&rsquo;s clear, use the playbook. If it needs experts, bring two or three options with tradeoffs. If it&rsquo;s complex, recommend small, safe steps and watch what happens. If it&rsquo;s chaos, recommend one stabilizing move first: one spokesperson, one set of facts, and a set time for the next update. In chaos, stabilize first and learn as you go.</div>
+<label class="f">Your confidence in the picture</label>
+<select id="c_conf"><option>Low</option><option selected>Moderate</option><option>High</option></select>
+<label class="f">What would change your assessment?</label><input type="text" id="c_change">
+<label class="f">Your recommendation <small>What should they do right now?</small></label><textarea id="c_rec"></textarea>
+<label class="f">Who owns each action? <small>A name for each, not an office.</small></label><input type="text" id="c_owner">
+<label class="f">Who decides? <small>One person.</small></label><input type="text" id="c_decider">
+<div class="why"><b>Why this matters.</b> Get clear on roles first: who recommends, who has to agree, who decides, and by when. Being consulted isn&rsquo;t the same as having a veto. If no single name is on the decision, it won&rsquo;t get made.</div>
+<label class="f">Who else must hear it, in what order? <small>One per line, first to last.</small></label><textarea id="c_order"></textarea>
+<label class="f">When will they hear from you next?</label><input type="text" id="c_next" placeholder="e.g., 1400 today, or as soon as the investigators report">
+<div class="row"><button class="primary" type="button" id="runC">Build the crisis brief</button></div>
+</section>
+
+<!-- STEP 3c RECOMMENDATION -->
+<section class="panel hidden" id="p3-recommend">
+<h2>Major recommendation</h2>
+<p class="sub">Answer first. Then make it easy to say yes, and clear who has to say it.</p>
+<div class="why"><b>Why this matters.</b> Leaders have minutes, not hours. Lead with the answer, support it with two or three reasons, and end with the next step and a named owner. A list of facts isn&rsquo;t a recommendation.</div>
+<label class="f">The decision, in one sentence <small>Phrase it as "whether": "Whether to launch a new engagement plan with our state delegation this quarter."</small></label><input type="text" id="r_q">
+<label class="f">Situation <small>What&rsquo;s true and accepted today.</small></label><textarea id="r_s"></textarea>
+<label class="f">Complication <small>What changed, or why the status quo won&rsquo;t hold.</small></label><textarea id="r_c"></textarea>
+<label class="f">Your answer <small>One sentence. This is the line they&rsquo;ll remember.</small></label><input type="text" id="r_a">
+<label class="f">Lens for your reasons</label>
+<select id="r_lens"><option value="rfi">Risk, feasibility, impact</option><option value="lor">Legal, operational, reputational</option><option value="own">My own headings</option></select>
+<label class="f">Reasons <small>Two or three. Each is one point that supports your answer.</small></label>
+<div id="r_reasons"></div>
+<label class="f">Options you considered <small>Including doing nothing. One per line: option, then the main tradeoff.</small></label><textarea id="r_opts" placeholder="Do nothing: no cost now, but the delegation hears about it from someone else"></textarea>
+<h2 style="margin-top:22px;font-size:1.15rem">Who decides</h2>
+<div class="why"><b>Why this matters.</b> Sort out roles before content. Keep the list of people who can block it short, and give them a deadline. Being consulted isn&rsquo;t a veto.</div>
+<label class="f">Decides <small>One person.</small></label><input type="text" id="r_d">
+<label class="f">Must agree before it goes forward <small>Keep this list short: legal, the comptroller, a peer whose lane it crosses. One per line.</small></label><textarea id="r_agree"></textarea>
+<label class="f">Deadline for their objections <small>After this, silence counts as agreement.</small></label><input type="text" id="r_agree_by">
+<label class="f">Consulted for input <small>One per line.</small></label><textarea id="r_input"></textarea>
+<label class="f">Carries it out</label><input type="text" id="r_perform">
+<h2 style="margin-top:22px;font-size:1.15rem">Stakeholders</h2>
+<div class="why"><b>Why this matters.</b> Score each stakeholder on three things: can they affect the outcome (power), is their claim legitimate, and is it urgent for them? Those with all three come first. The loudest voice isn&rsquo;t always the one that matters.</div>
+<div id="r_stake"></div>
+<div class="row" style="margin-top:6px"><button class="ghost" type="button" id="r_addst">+ Add a stakeholder</button></div>
+<label class="f">Objections you expect <small>One per line: objection | your answer.</small></label><textarea id="r_obj" placeholder="Too expensive this year | Phase one costs nothing; phase two waits for next year&rsquo;s budget"></textarea>
+<label class="f">Your specific ask <small>What do you need them to approve, today?</small></label><input type="text" id="r_ask">
+<label class="f">Next action, owner and date</label><input type="text" id="r_next" placeholder="Draft the engagement calendar | J. Smith | 15 Nov">
+<label class="f">How will someone confirm, 90 days from now, that this worked?</label><input type="text" id="r_90">
+<div class="why"><b>Why this matters.</b> A goal nobody can check isn&rsquo;t a plan. Write it so someone could confirm in 90 days whether it happened.</div>
+<label class="f">Format</label>
+<select id="r_fmt"><option value="memo">One-page memo</option><option value="email">Short email they can read on a phone</option><option value="spoken">Spoken brief (about 60 seconds)</option></select>
+<div class="tests" style="margin-top:14px"><b style="color:var(--maroon)">Ethics check (TARES)</b>
+<label><input type="checkbox" class="tares"><span> Truthful: nothing here misleads, including by leaving things out.</span></label>
+<label><input type="checkbox" class="tares"><span> Authentic: I believe this recommendation myself.</span></label>
+<label><input type="checkbox" class="tares"><span> Respectful: it treats the people affected as people, not targets.</span></label>
+<label><input type="checkbox" class="tares"><span> Equitable: it doesn&rsquo;t take unfair advantage of anyone&rsquo;s position or lack of information.</span></label>
+<label><input type="checkbox" class="tares"><span> Socially responsible: I&rsquo;d defend it to the public, not just to the boss.</span></label></div>
+<div class="row"><button class="primary" type="button" id="runR">Build the recommendation</button></div>
+</section>
+
+<!-- STEP 4 -->
+<section class="panel hidden" id="p4">
+<h2>Pressure test and delivery</h2>
+<p class="sub">Run these before you walk in.</p>
+<div class="tests">
+<label><input type="checkbox" data-t="sowhat"><span> I can say why each item matters to <em>them</em>, not just what happened.</span></label>
+<label><input type="checkbox" data-t="premortem"><span> Pre-mortem: I imagined it&rsquo;s two weeks from now and this went badly, and I know the most likely reason.</span></label>
+<label><input type="checkbox" data-t="counter"><span> I know the strongest argument against my recommendation, and I&rsquo;m ready to raise it myself.</span></label>
+<label><input type="checkbox" data-t="front"><span> Front-page test: I&rsquo;d be comfortable seeing this decision, and how we reached it, on the front page.</span></label>
+<label><input type="checkbox" data-t="peer"><span> Peer test: I&rsquo;d give the same advice if our roles were reversed.</span></label>
+<label><input type="checkbox" data-t="sun"><span> Sunlight test: nothing here depends on people not finding out.</span></label>
+</div>
+<div class="why"><b>Why this matters.</b> Bad news gets worse when it looks hidden. If one of these boxes stays empty, that&rsquo;s the part of your brief to fix before you deliver it.</div>
+<h2 style="margin-top:22px">If you disagree with where this is heading</h2>
+<div class="why" style="margin-top:6px"><b>Truth to power.</b> Do it privately and early. Describe behaviors and consequences, not labels. Offer a fix that keeps their intent. Then tell them what you&rsquo;ll do if they still decide the other way: you&rsquo;ll make sure your concern is noted, and you&rsquo;ll carry out their decision. Timing matters as much as words: raise it when it&rsquo;s relevant to what they&rsquo;re working on, when you&rsquo;re ready with a remedy, and when they can actually hear it.</div>
+<label class="f">Optional: draft your opening line</label><input type="text" id="t2p" placeholder="e.g., May I offer the strongest counterargument so we can test our confidence?">
+<div class="row"><button class="primary" type="button" id="finish">Show my brief</button></div>
+</section>
+
+<section id="out" class="hidden" aria-live="polite" style="border:0;padding:0"></section>
+
+<p style="margin-top:28px;color:var(--muted);font-size:.85rem">Built on my own time from almost 20 years of advising senior leaders. It draws on public frameworks including the Cynefin framework (Snowden and Boone), Boyd&rsquo;s OODA loop, decision-rights models such as RAPID, and the pyramid principle (Minto). The principal read draws on research on organizational behavior and leadership: Downs (1967), Merton (1940), Davis, Schoorman &amp; Donaldson (1997), Ferris et al. (2005), Brehm (1966), Hermann&rsquo;s Leadership Trait Analysis (1980), Hambrick &amp; Fukutomi (1991) and Tepper (2000).</p>
+</main>
+<footer><div class="wrap">Built by Brian Fickel on personal time, in his personal capacity. Not an official DoD or Army product, and no official endorsement is intended or implied. Provided free and as is, with no warranty; not legal, ethics or professional advice. The views expressed are my own and do not represent the Department of the Army, the Department of Defense or the U.S. Government. &middot; <a href="../../privacy.html">Privacy</a> &middot; <a href="../../terms.html">Terms</a></div></footer>
+
+<script>
+const $=id=>document.getElementById(id), esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const lines=s=>String(s||'').split('\n').map(x=>x.trim()).filter(Boolean);
+let sit='';
+function show(id){document.querySelectorAll('section.panel').forEach(p=>p.classList.add('hidden'));
+ if(id==='p3'){if(!sit){id='p2';}else id='p3-'+sit;}
+ $(id).classList.remove('hidden');
+ document.querySelectorAll('.steps button').forEach(b=>b.classList.toggle('on',(id.startsWith(b.dataset.go))));
+ window.scrollTo({top:$(id).offsetTop-90,behavior:'smooth'});}
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{saveProfile();show(b.dataset.go)});
+document.querySelectorAll('[data-sit]').forEach(b=>b.onclick=()=>{sit=b.dataset.sit;document.querySelectorAll('[data-sit]').forEach(x=>x.classList.toggle('on',x===b));show('p3')});
+$('quick').onchange=e=>document.body.classList.toggle('quick',e.target.checked);
+
+// ---- Read your principal: operating style (research-anchored) ----
+const STY={
+ steward:{n:'Institutional Steward',src:'Downs (1967), the statesman; Davis, Schoorman & Donaldson (1997), stewardship theory',
+  ind:['Raises hard questions about the institution early and in private','Backs a fair process even when it goes against what they wanted','Mentors successors and shares context freely'],
+  eng:'Bring them in early and give them the whole picture. Stewards respond to trust and involvement. Heavy monitoring or spin turns them off.',
+  fal:'They quietly trade the institution’s interest for a personal or unit advantage when no one would notice.'},
+ advocate:{n:'Advocate',src:'Downs (1967)',
+  ind:['Fights hard for their organization’s budget and standing with outsiders','Stays even-handed among their own sub-units'],
+  eng:'Show how your recommendation helps their organization’s standing. Inside that frame they’re a reliable partner; outside it, expect a firm opponent.',
+  fal:'They give up part of their own organization to protect a personal favorite.'},
+ zealot:{n:'Zealot',src:'Downs (1967)',
+  ind:['Brings most conversations back to one favorite program or cause','Reacts to any threat to that program far beyond the stakes'],
+  eng:'Don’t try to talk them out of the cause. Frame your advice in terms of what protects or advances it, and get key decisions locked in writing by the leaders above before implementation starts.',
+  fal:'They accept, without a fight, a decision that shrinks the favored program for the good of the whole.'},
+ empire:{n:'Empire Builder',src:'Downs (1967), the climber; Niskanen (1971)',
+  ind:['Moves to take on new functions when a reorganization or vacancy opens','Keeps count of people, positions and budget in most discussions'],
+  eng:'Tie what you need to growth they value. Put ownership and boundaries in writing before any reorganization, not after.',
+  fal:'They give up a function or position they could have kept, with nothing in return.'},
+ rules:{n:'Bureaucratic Personality',src:'Merton (1940); Downs (1967), the conserver',
+  ind:['Cites the rule before the purpose','Wants written authority even for routine steps','Treats exceptions as threats'],
+  eng:'Give them a rule to follow. Put the change in the form of an approved procedure or directive. Arguing from purpose alone rarely moves them.',
+  fal:'They waive a rule on their own when the exception plainly serves its purpose better.'},
+ standards:{n:'Standards Bearer',src:'Podsakoff et al. (1990); Judge, Piccolo & Ilies (2004); Locke & Latham (2002)',
+  ind:['Publishes intent and standards early, in writing','Names an owner for every outcome and tracks deadlines visibly','Welcomes challenge on method but not on the standard'],
+  eng:'Deliver in staff shape: bottom line, recommendation, owner, date. Close tasks visibly. Disagree on method, never on the standard.',
+  fal:'The first time someone misses a standard in public, they go after the person instead of the work and leave no way back.'},
+ operator:{n:'Political Operator',src:'Ferris et al. (2005), political skill; Mintzberg (1985)',
+  ind:['Keeps relationships with every faction','Adjusts positions to the audience and the payoff','Cooperates when the math works'],
+  eng:'Talk in terms of exchange and reputation: what each side gets. Keep agreements in writing, and expect them to revisit any deal that stops paying.',
+  fal:'They take a costly public stand on principle with nothing to gain.'},
+ reactant:{n:'Chronic Reactant',src:'Brehm (1966); Hong & Faedda (1996), trait reactance',
+  ind:['Pushes back on routine requests from higher headquarters','Hears a correction as an attack','Does the opposite after being told not to'],
+  eng:'Avoid controlling language. Offer two or three options inside the requirement and let them choose. If something is mandatory, let their own boss deliver it in writing, and never argue it in front of their staff.',
+  fal:'They comply promptly with a directive they dislike, without contesting it.'}
+};
+const IND=[];Object.entries(STY).forEach(([k,s])=>s.ind.forEach(t=>IND.push([k,t])));
+IND.sort((a,b)=>a[1].length%7-b[1].length%7);
+$('ind').innerHTML=IND.map(([k,t],i)=>`<label><input type="checkbox" data-s="${k}" data-i="${i}"> ${esc(t)}</label>`).join('');
+const TR=[
+ ['ctrl','Believes they can control events',{hi:'Expect them to want to act. Bring options for action, not just analysis.',lo:'They may wait to see how things develop. Show what can safely wait and what can’t.'}],
+ ['power','Needs to be seen as in charge',{hi:'Make sure the decision is clearly theirs. Don’t box them in or decide for them in a meeting.',lo:'They’re comfortable sharing influence. Bring others into the solution.'}],
+ ['complex','Comfort with nuance and ambiguity',{hi:'Give them the tradeoffs and the gray areas. They’ll distrust a brief that’s too tidy.',lo:'Keep it clear: one recommendation, the main reason, the main risk.'}],
+ ['conf','Self-confidence',{hi:'They may discount advice. Bring evidence and raise the strongest counterargument early.',lo:'Reassure with data, precedent and what peers have done.'}],
+ ['task','Focus: the mission or the people?',{hi:'Lead with the mission impact.',lo:'Lead with the impact on people.'},['Mission','People']],
+ ['distrust','Suspicious of others’ motives',{hi:'Expect them to ask why you’re bringing this. Show your sources and say plainly what’s in it for you, if anything.',lo:'They’ll take your advice at face value, so make sure it deserves to be.'}],
+ ['ingroup','Strong loyalty to their own team',{hi:'Who carries the message matters. Have a trusted insider deliver it or back it.',lo:'Outside views will get a fair hearing.'}]
+];
+$('traits').innerHTML=TR.map(([k,l,,lab])=>`<label class="f" style="font-weight:400;margin:6px 0 2px">${esc(l)}</label><select id="tr_${k}"><option value="">Don’t know</option><option value="hi">${lab?lab[0]:'High'}</option><option value="lo">${lab?lab[1]:'Low'}</option></select>`).join('');
+const SEASON={mandate:'New leaders are open to new information and want early wins tied to why they were brought in. This is your best window to shape their agenda.',experiment:'They’re trying things. Frame new ideas as experiments with a clear signal of success.',theme:'They’re choosing what they’ll be known for. Connect your advice to that theme.',converge:'They’re committed to their path. Frame advice as strengthening it, not changing it.',stale:'They may be tuning out new information. Bring evidence through people they already trust, and expect to repeat yourself.'};
+const HOR={rotate:'They have a short horizon. Tie your advice to results they can see during their tour, and help them set up their successor.',terminal:'Legacy matters to them. Frame advice in terms of what they leave behind.',long:'They have a long horizon. Lasting relationships and institutional health will weigh more than quick wins.',appointee:'Their horizon is tied to the administration. Expect policy alignment and outside politics to weigh heavily.'};
+function readPrincipal(){
+ const sc={};document.querySelectorAll('[data-s]:checked').forEach(x=>sc[x.dataset.s]=(sc[x.dataset.s]||0)+1);
+ const ranked=Object.entries(sc).sort((a,b)=>b[1]-a[1]);const conf=$('readconf').value;
+ const r={style:null,second:null,traits:[],season:SEASON[$('season').value]||'',horizon:HOR[$('horizon').value]||'',abuse:document.querySelectorAll('.ab:checked').length,conf};
+ if(ranked.length&&ranked[0][1]>=2){r.style=ranked[0][0];if(ranked[1]&&ranked[1][1]>=2)r.second=ranked[1][0];}
+ r.thin=!ranked.length||ranked[0][1]<2;
+ TR.forEach(([k,l,m])=>{const v=$('tr_'+k).value;if(v)r.traits.push(m[v]);});return r;}
+function readHTML(r){let h='';const s=r.style&&STY[r.style];
+ if(s){h+=`<p><b>Operating style: ${esc(s.n)}</b>${r.second?` (with signs of ${esc(STY[r.second].n)})`:''}. <span class="meta">Confidence: ${({low:'low',med:'medium',high:'high'})[r.conf]}.</span></p><p>${esc(s.eng)}</p><p class="meta"><b>Watch for this. If you see it, revisit the read:</b> ${esc(s.fal)}</p><p class="meta">Research basis: ${esc(s.src)}.</p>`;
+  if(r.second)h+=`<p class="meta"><b>Also:</b> ${esc(STY[r.second].eng)}</p>`;
+  if(r.conf==='low')h+=`<p class="meta">Your confidence is low. Treat this as a hypothesis and keep watching before you rely on it.</p>`;}
+ else if(r.thin)h+=`<p>Not enough observed behavior yet to suggest an operating style. That&rsquo;s normal early on. Check back after a few more weeks of watching how they work.</p>`;
+ if(r.traits.length)h+=`<p><b>Based on their traits:</b></p><ul>${r.traits.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>`;
+ if(r.season)h+=`<p><b>Tenure:</b> ${esc(r.season)}</p>`;
+ if(r.horizon)h+=`<p><b>Horizon:</b> ${esc(r.horizon)}</p>`;
+ if(r.abuse>=2)h+=`<div class="flag red"><b>The warning signs you checked fit a pattern researchers call abusive supervision (Tepper, 2000).</b> Better advising rarely changes it. Protect the people below this leader. Write down specific incidents with dates. Know who rates this leader and how to reach your inspector general, ethics office or HR. Talk it through with a mentor outside the chain.</div>`;
+ else if(r.abuse===1)h+=`<p class="meta">You checked one warning sign. Keep an eye on it; one incident isn&rsquo;t a pattern.</p>`;
+ return h||'<p class="meta">Nothing entered yet.</p>';}
+$('readBtn').onclick=()=>{$('readOut').innerHTML=`<div class="brief" style="margin-top:12px;border-width:1px"><h4 style="margin-top:0">Your read (private)</h4>${readHTML(readPrincipal())}</div>`;};
+
+// profile storage (opt-in, local only)
+const PF=['pr_title','pr_format','pr_detail','pr_channel','pr_time','pr_dissent','pr_triggers','season','horizon','readconf','tr_ctrl','tr_power','tr_complex','tr_conf','tr_task','tr_distrust','tr_ingroup'];
+function saveProfile(){try{if($('remember').checked){const o={};PF.forEach(k=>o[k]=$(k).value);localStorage.setItem('abb_profile',JSON.stringify(o));}else localStorage.removeItem('abb_profile');}catch(_){}}
+try{const o=JSON.parse(localStorage.getItem('abb_profile')||'null');if(o){PF.forEach(k=>{if(o[k]!=null)$(k).value=o[k]});$('remember').checked=true;}}catch(_){}
+const P=()=>({title:$('pr_title').value||'your principal',format:$('pr_format').value,detail:$('pr_detail').value,channel:$('pr_channel').value,time:$('pr_time').value,dissent:$('pr_dissent').value,triggers:$('pr_triggers').value});
+
+// portfolio items
+const CK=[['decide','Needs their decision'],['surprise','They&rsquo;d be surprised to hear it from someone else'],['rep','Touches their reputation, Congress, the press, or their boss'],['bad','It&rsquo;s bad news or a problem'],['peer','Affects another leader or organization'],['handle','I (or the staff) can handle it within our authority']];
+function addItem(v){const d=document.createElement('div');d.className='item';
+ d.innerHTML=`<div class="top"><input type="text" class="t" placeholder="Item, in a few words"><button class="x" type="button" title="Remove">&times;</button></div>
+ <input type="text" class="s" style="margin-top:8px" placeholder="Status in one line: what changed?">
+ <div class="checks">${CK.map(([k,l])=>`<label><input type="checkbox" data-k="${k}"> ${l}</label>`).join('')}
+ <label>Deadline: <select class="dl" style="width:auto;margin-left:6px;padding:4px 8px"><option value="none">None</option><option value="72">Within 72 hours</option><option value="2w">Within two weeks</option><option value="later">Later</option></select></label></div>`;
+ d.querySelector('.x').onclick=()=>d.remove();$('items').appendChild(d);}
+$('add').onclick=()=>addItem();addItem();addItem();addItem();
+
+function triage(it){const c=it.c,urgent=it.dl==='72';
+ if((c.decide&&urgent)||(c.surprise&&(c.rep||c.bad))||(c.bad&&c.rep))return['now','Tell now'];
+ if(c.decide||c.surprise||c.rep||c.peer||c.bad)return['week','Weekly update'];
+ if(c.handle)return['handle','Handle it'];
+ return['week','Weekly update'];}
+function why(it,b){const c=it.c,r=[];
+ if(c.decide)r.push(it.dl==='72'?'they must decide within 72 hours':'they will have to decide');
+ if(c.surprise)r.push('they would be surprised to hear it elsewhere');
+ if(c.rep)r.push('it touches their reputation or an outside audience');
+ if(c.bad)r.push('it is bad news');
+ if(c.peer)r.push('another leader is involved');
+ if(b==='handle')return 'Within your authority and none of the triggers apply. Keep them informed by listing it as handled.';
+ if(!r.length)return 'No trigger checked, and you did not mark it as something you can handle. Decide whether it belongs on their desk at all.';
+ return 'Because '+r.join(', ')+'.';}
+
+let last=null;
+$('runP').onclick=()=>{const items=[...document.querySelectorAll('.item')].map(d=>{const c={};d.querySelectorAll('[data-k]').forEach(x=>c[x.dataset.k]=x.checked);return{t:d.querySelector('.t').value.trim(),s:d.querySelector('.s').value.trim(),dl:d.querySelector('.dl').value,c}}).filter(x=>x.t);
+ if(!items.length){alertBox('Add at least one item.');return;}
+ items.forEach(it=>{const[b,l]=triage(it);it.b=b;it.l=l;it.w=why(it,b)});
+ last={type:'portfolio',items};show('p4');};
+
+// recommendation path
+const LENS={rfi:['Risk','Feasibility','Impact'],lor:['Legal','Operational','Reputational'],own:['','','']};
+function drawReasons(){const L=LENS[$('r_lens').value];$('r_reasons').innerHTML=L.map((h,i)=>`<div class="top" style="display:flex;gap:8px;margin:6px 0"><input type="text" class="rh" style="max-width:200px" value="${esc(h)}" placeholder="Heading"><input type="text" class="rp" placeholder="One supporting point${i===2?' (optional)':''}"></div>`).join('');}
+$('r_lens').onchange=drawReasons;drawReasons();
+function addSt(){const d=document.createElement('div');d.className='item';d.innerHTML=`<div class="top"><input type="text" class="sn" placeholder="Stakeholder (person or group)"><button class="x" type="button" title="Remove">&times;</button></div><div class="checks"><label><input type="checkbox" class="sp"> Power: can affect the outcome</label><label><input type="checkbox" class="sl"> Legitimate claim</label><label><input type="checkbox" class="su"> Urgent for them now</label><label><input type="checkbox" class="sloud"> Loudest voice on this</label></div>`;d.querySelector('.x').onclick=()=>d.remove();$('r_stake').appendChild(d);}
+$('r_addst').onclick=addSt;addSt();addSt();
+$('runR').onclick=()=>{
+ const reasons=[...document.querySelectorAll('#r_reasons .top')].map(r=>({h:r.querySelector('.rh').value.trim(),p:r.querySelector('.rp').value.trim()})).filter(r=>r.p);
+ const st=[...document.querySelectorAll('#r_stake .item')].map(d=>{const n=d.querySelector('.sn').value.trim();const k=['sp','sl','su'].filter(c=>d.querySelector('.'+c).checked).length;return{n,k,loud:d.querySelector('.sloud').checked,pw:d.querySelector('.sp').checked}}).filter(x=>x.n).sort((a,b)=>b.k-a.k);
+ const obj=lines($('r_obj').value).map(l=>{const[a,b]=l.split('|');return{o:(a||'').trim(),r:(b||'').trim()}});
+ const nx=($('r_next').value||'').split('|').map(x=>x.trim());
+ last={type:'recommend',q:$('r_q').value.trim(),s:$('r_s').value.trim(),c:$('r_c').value.trim(),a:$('r_a').value.trim(),reasons,opts:lines($('r_opts').value),d:$('r_d').value.trim(),agree:lines($('r_agree').value),agreeBy:$('r_agree_by').value.trim(),input:lines($('r_input').value),perform:$('r_perform').value.trim(),st,obj,ask:$('r_ask').value.trim(),next:nx,m90:$('r_90').value.trim(),fmt:$('r_fmt').value,tares:document.querySelectorAll('.tares:checked').length};
+ show('p4');};
+const tier=k=>k===3?'Engage first':k===2?'Engage next':'Monitor';
+$('runC').onclick=()=>{last={type:'crisis',what:$('c_what').value,facts:lines($('c_facts').value),unk:lines($('c_unknowns').value),worst:$('c_worst').value,win:$('c_window').value,cause:$('c_cause').value,conf:$('c_conf').value,change:$('c_change').value,rec:lines($('c_rec').value),owner:$('c_owner').value,decider:$('c_decider').value,order:lines($('c_order').value),next:$('c_next').value};show('p4');};
+function alertBox(m){$('out').innerHTML=`<div class="flag red">${esc(m)}</div>`;$('out').classList.remove('hidden');}
+
+function deliveryNote(p){const f={read:'Send a short written version first, then offer to talk.',talk:'Ask for five minutes in person. Bring the one-page version as a leave-behind.',both:'Send a read-ahead of half a page or less, then talk it through.'}[p.format];
+ const d={bottom:'Lead with the bottom line and stop. Have the detail ready if they ask.',some:'Bottom line first, then the two or three reasons that matter most.',deep:'Bottom line first, then the full picture. Keep the data in an attachment, not in the body.'}[p.detail];
+ const dis={private:'If you disagree with them, do it one on one, never in the room.',room:'They take disagreement openly, but still raise your strongest concern before the decision, not after.',unknown:'You don&rsquo;t know yet how they take disagreement. Raise concerns privately until you do.'}[p.dissent];
+ return `<li>${esc(f)}</li><li>${esc(d)}</li><li>Channel: ${esc(p.channel)}.${p.time?' Best timing: '+esc(p.time)+'.':''}</li><li>${dis}</li>${p.triggers?`<li>Watch for: ${esc(p.triggers)}.</li>`:''}`;}
+
+$('finish').onclick=()=>{if(!last){alertBox('Build a portfolio update or crisis brief first (step 3).');return;}
+ saveProfile();const p=P();let h='';
+ if(last.type==='portfolio'){const g=b=>last.items.filter(i=>i.b===b);
+  const sec=(b,title)=>g(b).length?`<h4>${title}</h4><ul>${g(b).map(i=>`<li><b>${esc(i.t)}</b>${i.s?': '+esc(i.s):''}${i.c.decide?' <em>(decision needed'+(i.dl==='72'?', within 72 hours':'')+')</em>':''}<br><span class="meta">${esc(i.w)}</span></li>`).join('')}</ul>`:'';
+  h=`<div class="brief" id="mainbrief"><h3>Update for ${esc(p.title)}</h3><p class="meta">${new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})}</p>
+  ${g('now').length?`<p><b>Bottom line:</b> ${g('now').filter(i=>i.c.decide).length?g('now').filter(i=>i.c.decide).length+' item(s) need your decision now.':'You need to know about '+g('now').length+' item(s) today.'}</p>`:'<p><b>Bottom line:</b> Nothing needs you today.</p>'}
+  ${sec('now','Tell now')}${sec('week','For the weekly update')}${sec('handle','Handled at my level (no action needed)')}
+  <h4>How to deliver it</h4><ul>${deliveryNote(p)}<li>Put decisions and bad news first. Don&rsquo;t bury them under good news.</li></ul></div>`;}
+ else if(last.type==='recommend'){const r=last,fmt={memo:'One-page memo',email:'Phone-length email',spoken:'Spoken brief, about 60 seconds'}[r.fmt];
+  const nxt=r.next.filter(Boolean);
+  h=`<div class="brief" id="mainbrief"><h3>${r.fmt==='email'?'Subject: Decision needed: ':'Recommendation for '+esc(p.title)+': '}${esc(r.q.replace(/^whether\s+(to\s+)?/i,'').replace(/^./,c=>c.toUpperCase()))||'(the decision)'}</h3><p class="meta">${esc(fmt)} &middot; ${new Date().toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})}</p>
+  <p><b>Bottom line:</b> ${esc(r.a)||'(your answer)'}${r.ask?' <b>I need your decision to</b> '+esc(r.ask.replace(/^./,c=>c.toLowerCase())).replace(/\.?$/,'.'):''}</p>
+  ${r.reasons.length?`<h4>Why</h4><ul>${r.reasons.map(x=>`<li>${x.h?'<b>'+esc(x.h)+':</b> ':''}${esc(x.p)}</li>`).join('')}</ul>`:''}
+  ${r.fmt!=='spoken'&&(r.s||r.c)?`<h4>Background</h4>${r.s?`<p>${esc(r.s)}</p>`:''}${r.c?`<p>${esc(r.c)}</p>`:''}`:''}
+  ${r.opts.length&&r.fmt==='memo'?`<h4>Options considered</h4><ul>${r.opts.map(o=>`<li>${esc(o)}</li>`).join('')}</ul>`:''}
+  ${r.obj.length?`<h4>Concerns you may have</h4><ul>${r.obj.map(o=>`<li>${esc(o.o)}${o.r?': '+esc(o.r):''}</li>`).join('')}</ul>`:''}
+  ${r.fmt==='memo'?`<h4>Who decides</h4><p>Decides: ${esc(r.d)||'(name one person)'}.${r.agree.length?' Must agree: '+r.agree.map(esc).join(', ')+(r.agreeBy?' (objections by '+esc(r.agreeBy)+')':'')+'.':''}${r.input.length?' Consulted: '+r.input.map(esc).join(', ')+'.':''}${r.perform?' Carries it out: '+esc(r.perform)+'.':''}</p>`:''}
+  ${r.st.length&&r.fmt==='memo'?`<h4>Engagement order</h4><ol>${r.st.map(x=>`<li>${esc(x.n)} <span class="meta">(${tier(x.k)})</span></li>`).join('')}</ol>`:''}
+  <h4>Next step</h4><p>${nxt.length?esc(nxt.join(', ')):'(action, owner, date)'}</p>
+  ${r.m90&&r.fmt==='memo'?`<h4>How we&rsquo;ll know it worked (90 days)</h4><p>${esc(r.m90)}</p>`:''}
+  <h4>How to deliver it</h4><ul>${deliveryNote(p)}${r.fmt==='spoken'?'<li>Say the bottom line in your first sentence. Stop after the ask and let them talk.</li>':''}${r.agree.length?'<li>Brief the people who must agree before the meeting, not in it.</li>':''}</ul></div>`;}
+ else{const c=last,act={clear:'Use the standard playbook. Confirm it fits, then execute.',experts:'Bring two or three options with the tradeoffs. Get the right experts in the room.',complex:'Recommend small, safe steps and agree in advance what signal would tell us to change course.',chaos:'Take one stabilizing step first: one spokesperson, one set of facts, and a set time for the next update.'}[c.cause];
+  h=`<div class="brief" id="mainbrief"><h3>Crisis brief for ${esc(p.title)}</h3><p class="meta">${new Date().toLocaleString()}</p>
+  <p><b>Bottom line:</b> ${c.rec.length?esc(c.rec[0]):'(add your recommendation)'}${c.win?' Decision needed: '+esc(c.win.toLowerCase())+'.':''}</p>
+  <h4>What happened</h4><p>${esc(c.what)||'(one sentence)'}</p>
+  <h4>What we know (verified)</h4>${c.facts.length?`<ul>${c.facts.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p>(none confirmed yet)</p>'}
+  <h4>What we don&rsquo;t know yet</h4>${c.unk.length?`<ul>${c.unk.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p>(list them)</p>'}
+  <h4>Credible worst case</h4><p>${esc(c.worst)||'(state it)'}</p>
+  <h4>Confidence</h4><p>${esc(c.conf)}.${c.change?' This would change it: '+esc(c.change)+'.':''}</p>
+  <h4>Recommendation</h4>${c.rec.length?`<ul>${c.rec.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p>(add it)</p>'}<p class="meta">${esc(act)}</p>
+  <h4>Who decides and who owns it</h4><p>Decides: ${esc(c.decider)||'(name one person)'}. Owners: ${esc(c.owner)||'(name them)'}.</p>
+  ${c.order.length?`<h4>Who hears it, in order</h4><ol>${c.order.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`:''}
+  <h4>Next update</h4><p>${esc(c.next)||'(set a time)'}</p>
+  <h4>How to deliver it</h4><ul>${deliveryNote(p)}<li>In a crisis, don&rsquo;t wait for the perfect moment. Deliver it now and say when the next update comes.</li></ul></div>`;}
+ // flags
+ const t=k=>document.querySelector(`[data-t="${k}"]`).checked, F=[];
+ const lab={sowhat:'"So what" for them',premortem:'Pre-mortem',counter:'Strongest counterargument',front:'Front-page test',peer:'Peer test',sun:'Sunlight test'};
+ Object.keys(lab).forEach(k=>{if(!t(k))F.push(['', lab[k]+' not done yet. Fix this before you walk in.'])});
+ if(last.type==='recommend'){const r=last;
+  if(!r.q)F.push(['red','No decision question. Write the decision in one sentence, starting with "whether."']);
+  if(!r.a)F.push(['red','No answer. A list of facts isn\u2019t a recommendation.']);
+  if(!r.d)F.push(['red','No decider named. Name one person.']);
+  if(/,| and /.test(r.d))F.push(['red','More than one decider. Name one person.']);
+  if(r.agree.length>2)F.push(['','You have '+r.agree.length+' people who must agree. Too many vetoes stall decisions. Move some to "consulted."']);
+  if(r.agree.length&&!r.agreeBy)F.push(['','No deadline for objections. Without one, every agreeing party is an open-ended veto.']);
+  if(r.reasons.length<2)F.push(['','Give two or three reasons.']);
+  if(r.next.filter(Boolean).length<3)F.push(['','The next step needs an action, a named owner and a date.']);
+  if(!r.m90)F.push(['','No 90-day measure. How will anyone know it worked?']);
+  const loudOnly=r.st.filter(x=>x.loud&&x.k<2);if(loudOnly.length)F.push(['',loudOnly.map(x=>x.n).join(', ')+': loud, but low on power, legitimacy and urgency. Don\u2019t let volume set the order.']);
+  if(r.tares<5)F.push([r.tares<3?'red':'','Ethics check: '+(5-r.tares)+' of 5 TARES items not confirmed. Fix that before persuading anyone.']);}
+ if(last.type==='crisis'){if(!last.decider)F.push(['red','No decider named. Name one person.']);if(!last.facts.length)F.push(['red','No verified facts. Separate what you know from what you think.']);if(!last.next)F.push(['','No time set for the next update.']);if(!last.owner)F.push(['','No owners named for the actions.']);}
+ if(last.type==='portfolio'){const n=last.items.filter(i=>i.b==='now').length;if(n>3)F.push(['','You have '+n+' "tell now" items. If everything is urgent, nothing is. Check whether some can wait for the weekly update.']);
+  last.items.filter(i=>!i.s).forEach(i=>F.push(['','"'+i.t+'" has no status line. What changed?']));}
+ const t2=$('t2p').value.trim();
+ h+=`<div class="flags">${F.length?F.map(([c,m])=>`<div class="flag ${c}">${esc(m)}</div>`).join(''):'<div class="flag ok">All pressure tests checked.</div>'}${t2?`<div class="flag ok note">Your truth-to-power opener: &ldquo;${esc(t2)}&rdquo;</div>`:''}</div>
+ <div class="row"><button class="ghost" type="button" onclick="window.print()">Print or save as PDF</button><button class="ghost" type="button" id="copy">Copy as text</button></div>`;
+ const rd=readPrincipal();if(rd.style||rd.traits.length||rd.season||rd.horizon||rd.abuse)h+=`<div class="private flag" style="margin-top:16px;border-left-color:var(--maroon);background:#fff"><b>Your private read (not part of the brief; not printed or copied)</b>${readHTML(rd)}</div>`;
+ $('out').innerHTML=h;$('out').classList.remove('hidden');$('out').scrollIntoView({behavior:'smooth'});
+ $('copy').onclick=async e=>{try{await navigator.clipboard.writeText(document.getElementById('mainbrief').innerText);e.target.textContent='Copied';}catch(_){}};};
+</script>
+</body></html>
