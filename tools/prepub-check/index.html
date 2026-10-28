@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prepublication Self-Check | Brian Fickel</title>
+<meta name="description" content="A free self-check for DoD authors: see what a security and policy reviewer is likely to raise before you submit. Runs entirely in your browser.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../../img/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<style>
+.tool main{max-width:820px;margin:0 auto;padding:40px 20px 64px}
+.tool h1{font:600 2rem/1.25 "Libre Baskerville",Georgia,serif;color:var(--maroon);margin:0 0 8px}
+.kicker{font:700 .8rem/1 "Montserrat",sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+.notice{background:#fff;border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:8px;padding:14px 18px;margin:20px 0;font-size:.95rem}
+.notice strong{color:var(--maroon)}
+fieldset{border:1px solid var(--line);background:#fff;border-radius:10px;padding:18px 20px;margin:0 0 14px}
+legend{font-weight:700;color:var(--maroon);padding:0 6px}
+.q{padding:12px 0;border-top:1px solid #f1e9dc}
+.q:first-of-type{border-top:0}
+.q p{margin:0 0 8px;font-weight:600}
+.q small{display:block;color:var(--muted);font-weight:400;margin-top:2px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opts label{border:1px solid var(--line);border-radius:999px;padding:5px 14px;cursor:pointer;font-size:.92rem;background:var(--cream)}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts input:checked+span{font-weight:700;color:var(--maroon)}
+.opts label:has(input:checked){border-color:var(--maroon);background:var(--gold-soft)}
+.opts input:focus-visible+span{outline:2px solid var(--maroon);outline-offset:3px}
+textarea{width:100%;min-height:220px;border:1px solid var(--line);border-radius:8px;padding:12px;font:15px/1.5 "Source Sans 3",sans-serif;resize:vertical;background:var(--cream)}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+button{font:700 1rem "Source Sans 3",sans-serif;border:0;border-radius:999px;padding:12px 24px;cursor:pointer}
+.primary{background:var(--maroon);color:#fff}.primary:hover{background:var(--maroon-2)}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+#report{margin-top:28px}
+.overall{border-radius:12px;padding:20px 22px;color:#fff;margin-bottom:16px}
+.overall h2{color:#fff;margin:0 0 6px;font:600 1.4rem/1.3 "Libre Baskerville",Georgia,serif;letter-spacing:0;text-transform:none}
+.overall p{margin:0}
+.lv-red{background:#8b1c1c}.lv-yellow{background:#9a6a00}.lv-green{background:#2f6b3a}
+.find{background:#fff;border:1px solid var(--line);border-left:6px solid #ccc;border-radius:8px;padding:14px 18px;margin:10px 0}
+.find.red{border-left-color:#b02a2a}.find.yellow{border-left-color:#e0a106}.find.green{border-left-color:#3d8b4a}
+.find h3{margin:0 0 4px;font-size:1.05rem;color:var(--ink);font-family:"Source Sans 3",sans-serif;font-weight:700}
+.find .tag{font:700 .7rem/1 "Montserrat",sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-right:8px}
+.find.red .tag{color:#b02a2a}.find.yellow .tag{color:#a37300}.find.green .tag{color:#3d8b4a}
+.find p{margin:4px 0;font-size:.96rem}
+.find .cite{color:var(--muted);font-size:.85rem}
+.hits{margin:6px 0 0;padding-left:18px;font-size:.9rem;color:var(--muted)}
+.hits mark{background:var(--gold-soft);color:var(--ink);padding:0 2px}
+.disc{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-top:20px}
+.disc input,.disc select{font:15px "Source Sans 3",sans-serif;padding:8px 10px;border:1px solid var(--line);border-radius:6px;margin:4px 8px 8px 0;background:var(--cream)}
+.disc output{display:block;background:var(--cream);border:1px dashed var(--line);border-radius:6px;padding:12px;margin-top:8px;font-style:italic}
+.hidden{display:none}
+@media print{header.top,.notice,form,.row,footer,.disc .row{display:none!important}.overall{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head>
+<body class="tool">
+<header class="top"><div class="wrap"><a href="../../index.html"><img src="../../img/logo-mark.png" alt="BF"></a><nav><a href="../../index.html">Home</a></nav></div></header>
+<main>
+<p class="kicker">Practitioner tool &middot; Version 1 (beta)</p>
+<h1>Prepublication Self-Check</h1>
+<p class="lede">For DoD service members and civilians writing an article, op-ed, book chapter, post or speech. Answer a few questions, paste your draft if you like, and see what a security and policy reviewer is likely to raise before you submit.</p>
+
+<div class="notice"><strong>This is a self-check, not a clearance.</strong> It cannot clear anything for release and it cannot recognize classified information. Submit your work to your organization's public affairs or security review office as your regulations require. <strong>Never paste classified or CUI material into any web page,</strong> including this one.</div>
+<div class="notice"><strong>Your text stays on your device.</strong> This page has no server, no tracking and no storage. Your answers and draft are read only by your own browser and disappear when you close the tab.</div>
+
+<form id="f" onsubmit="return false">
+<fieldset><legend>1. About you and the piece</legend>
+<div class="q" data-q="dod"><p>Are you currently serving in the military or employed by DoD (civilian, or contractor writing about your DoD work)?</p><div class="opts"></div></div>
+<div class="q" data-q="subject"><p>Does the piece touch military matters, national security, or another subject of significant concern to DoD?<small>Strategy, operations, policy, programs, budgets, foreign relations, the force, your organization.</small></p><div class="opts"></div></div>
+<div class="q" data-q="official"><p>Will it carry your rank, title or organization, or will you be identified by your DoD role?</p><div class="opts"></div></div>
+<div class="q" data-q="dutytime"><p>Did you write it as part of your job, on duty time, or with government equipment?</p><div class="opts"></div></div>
+<div class="q" data-q="senior"><p>Are you a general or flag officer or a senior executive, or is the piece about an issue of national significance?</p><div class="opts"></div></div>
+</fieldset>
+<fieldset><legend>2. Content</legend>
+<div class="q" data-q="nonpublic"><p>Does it use anything you know only because of your job and that has not been officially released?<small>Internal documents, draft plans, meeting discussions, unreleased reports or data.</small></p><div class="opts"></div></div>
+<div class="q" data-q="ops"><p>Does it mention units, locations, dates, capabilities, vulnerabilities, tactics or future activities?</p><div class="opts"></div></div>
+<div class="q" data-q="sensitive"><p>Does it discuss intelligence, cyber, space, nuclear, chemical or biological weapons, or new weapons and technology?</p><div class="opts"></div></div>
+<div class="q" data-q="policy"><p>Does it comment on current or pending policy, budgets, legislation, or decisions by senior officials?</p><div class="opts"></div></div>
+<div class="q" data-q="political"><p>Is the piece, or the outlet, partisan or tied to a campaign, candidate or political party?</p><div class="opts"></div></div>
+<div class="q" data-q="people"><p>Does it quote or name people, include photos of people, or use images, charts or text you did not create?</p><div class="opts"></div></div>
+</fieldset>
+<fieldset><legend>3. Money and endorsement</legend>
+<div class="q" data-q="paid"><p>Will you be paid, or receive anything of value, for this piece?</p><div class="opts"></div></div>
+<div class="q" data-q="endorse"><p>Does it promote a product, company, service, nonprofit or fundraising effort?</p><div class="opts"></div></div>
+</fieldset>
+<fieldset><legend>4. Paste your draft (optional)</legend>
+<p style="margin-top:0;color:var(--muted);font-size:.95rem">The scan looks for common warning signs: markings, operational details, official-voice language, personal information and more. It is a pattern match, not a judgment. Unclassified, uncontrolled text only.</p>
+<textarea id="draft" placeholder="Paste unclassified, uncontrolled text here..."></textarea>
+</fieldset>
+<div class="row"><button class="primary" id="run" type="button">Check my piece</button><button class="ghost" id="reset" type="button">Start over</button></div>
+</form>
+
+<section id="report" class="hidden" aria-live="polite" style="border:0;padding:0"></section>
+
+<div class="disc" id="disc">
+<h2 style="margin:0 0 6px">Disclaimer generator</h2>
+<p style="margin:0 0 10px;color:var(--muted);font-size:.95rem">If you write in your personal capacity and identify your DoD affiliation, include a disclaimer and make it reasonably prominent: near your byline or at the top, not buried in a footer.</p>
+<select id="dsvc" aria-label="Component">
+<option value="the Department of the Army">Army</option><option value="the Department of the Navy">Navy or Marine Corps</option><option value="the Department of the Air Force">Air Force or Space Force</option><option value="">Other DoD component</option>
+</select>
+<select id="dtype" aria-label="Disclaimer type">
+<option value="views">Standard (views are my own)</option><option value="social">Social media profile</option>
+</select>
+<output id="dout"></output>
+<div class="row"><button class="ghost" id="dcopy" type="button">Copy disclaimer</button></div>
+</div>
+
+<p class="cite" style="margin-top:28px;color:var(--muted);font-size:.85rem">Sources: DoDI 5230.09, Clearance of DoD Information for Public Release; DoDI 5230.29, Security and Policy Review of DoD Information for Public Release; DoDI 5400.17, Official Use of Social Media; 5 CFR part 2635 (Standards of Ethical Conduct); the Hatch Act and DoDD 1344.10; your service's public affairs and OPSEC regulations. Check the current versions; this tool summarizes, it does not replace them.</p>
+</main>
+<footer><div class="wrap">Brian Fickel, in his personal capacity. Not an official DoD or Army product. The views expressed are my own and do not represent the Department of the Army, the Department of Defense or the U.S. Government. &middot; <a href="../../privacy.html">Privacy</a></div></footer>
+
+<script>
+const ANS=[["yes","Yes"],["no","No"],["unsure","Not sure"]];
+document.querySelectorAll('.q').forEach(q=>{const k=q.dataset.q,o=q.querySelector('.opts');
+ ANS.forEach(([v,l])=>{const lab=document.createElement('label');lab.innerHTML=`<input type="radio" name="${k}" value="${v}"><span>${l}</span>`;o.appendChild(lab);});});
+const val=k=>(document.querySelector(`input[name="${k}"]:checked`)||{}).value||'';
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// Question rules: [key, level if yes, level if unsure, title, explanation, citation]
+const RULES=[
+ ['subject','yellow','yellow','Review likely required','Current DoD personnel writing in a personal capacity on military matters, national security or subjects of significant DoD concern are generally expected to submit the work for security and policy review before release.','DoDI 5230.09; DoDI 5230.29'],
+ ['official','yellow','yellow','Title, rank or affiliation used','You may usually list your title or rank as one biographical detail, but not in a way that suggests the government sanctions or endorses the piece. Add a reasonably prominent disclaimer (see the generator below).','5 CFR 2635.807; 5 CFR 2635.702(b); DoDI 5400.17'],
+ ['dutytime','red','yellow','May be an official product','Work prepared as part of your duties, or on duty time with government resources, is generally official information. It goes through official release channels, not personal publication.','DoDI 5230.09; 5 CFR 2635.704-705'],
+ ['senior','red','yellow','Higher-level review likely','Material from general and flag officers or senior executives, or on issues of national significance, is often referred to higher-level security and policy review (for example, the Defense Office of Prepublication and Security Review). Allow extra time.','DoDI 5230.29'],
+ ['nonpublic','red','red','Nonpublic information','Using information you have only because of your job, and that has not been made public, is prohibited unless it is officially released first. Reviewers will ask for a public source for every such fact.','5 CFR 2635.703'],
+ ['ops','red','yellow','Operational details (OPSEC)','Units, locations, dates, capabilities, vulnerabilities and future activities are classic operations security concerns. Expect reviewers to ask you to generalize or remove them.','DoDD 5205.02E; service OPSEC regulations'],
+ ['sensitive','red','yellow','Sensitive subject area','Intelligence, cyber, space, nuclear, chemical and biological weapons, and new weapons and technologies are named categories that typically need specialized security review.','DoDI 5230.29'],
+ ['policy','yellow','yellow','Policy, budget or legislation','Commentary on current policy, budgets, pending legislation or senior officials draws policy review. It is often permitted with a disclaimer, but avoid appearing to speak for DoD, lobbying, or (for commissioned officers) contemptuous words about certain senior officials.','DoDI 5230.09; UCMJ Art. 88'],
+ ['political','red','yellow','Partisan political activity','Partisan content or outlets raise Hatch Act (civilians) and DoDD 1344.10 (military) limits. Rules differ by status and may bar using your title or position in political writing.','5 CFR part 734; DoDD 1344.10'],
+ ['people','yellow','yellow','People, quotes and images','Get permission for photos and quotes as needed, confirm copyright or licensing for images and text you did not create, and avoid personal information about others.','Copyright law; Privacy Act; DoD public affairs guidance'],
+ ['paid','red','yellow','Compensation','Executive branch employees generally may not accept compensation for writing that relates to their official duties. Check with your ethics counselor before accepting payment.','5 CFR 2635.807'],
+ ['endorse','red','yellow','Endorsement or fundraising','Using your position or title to endorse a product, service or enterprise, or to solicit funds, is generally prohibited.','5 CFR 2635.702(c); 5 CFR 2635.808']
+];
+
+// Text scan patterns: [label, level, regex, note]
+const SCAN=[
+ ['Classification or control markings','red',/\b(TOP SECRET|SECRET\/\/|CONFIDENTIAL\/\/|\(S\)|\(C\)|\(TS\)|NOFORN|REL TO|CUI|FOUO|FOR OFFICIAL USE ONLY|LIMDIS|PROPIN|CLOSE HOLD)\b/g,'Markings mean the source text is controlled. Stop and confirm the material is releasable before going further.'],
+ ['Draft, predecisional or not-for-release language','red',/\b(predecisional|pre-decisional|deliberative|not for (public )?release|internal use only|do not distribute|draft (plan|policy|guidance|report))\b/gi,'Predecisional and internal material is usually not releasable.'],
+ ['Future activity or timing','yellow',/\b(will deploy|upcoming|next (week|month|quarter|year)|planned (exercise|operation|deployment|rotation)|is scheduled to|in the coming (weeks|months))\b/gi,'Future activities and timelines are common OPSEC flags.'],
+ ['Unit designations','yellow',/\b\d{1,3}(st|nd|rd|th)\s+(Infantry|Armored|Airborne|Cavalry|Brigade|Division|Battalion|Regiment|Squadron|Wing|Group|Fleet|Expeditionary|Special Forces|Marine)\b|\b\d{1,3}(st|nd|rd|th)?\s?(BCT|IBCT|ABCT|SBCT|MEU|SFG|BN|BDE|ID|AD|CAB)\b/g,'Named units combined with locations, dates or capabilities can reveal operations.'],
+ ['Grid coordinates or lat/long','red',/\b\d{1,2}[C-HJ-NP-X]\s?[A-HJ-NP-Z]{2}\s?\d{4,10}\b|-?\d{1,2}\.\d{3,}\s*[,;]\s*-?\d{1,3}\.\d{3,}/g,'Coordinates are almost always removed.'],
+ ['Capability, readiness or vulnerability','yellow',/\b(vulnerabilit(y|ies)|readiness rate|shortfall|capability gap|not mission capable|single point of failure|countermeasure|TTPs?)\b/gi,'Specific weaknesses and tactics draw OPSEC review.'],
+ ['Speaking for the institution','yellow',/\b(the (Army|Navy|Air Force|Marine Corps|Space Force|Department|Pentagon|command) (will|plans to|intends to|has decided|is going to)|our (official )?policy is|on behalf of (the )?(Army|Department|command))\b/gi,'Phrasing that sounds like an official position. In a personal piece, attribute views to yourself.'],
+ ['Nonpublic sourcing cues','red',/\b(internal (memo|email|brief|briefing|document|report|assessment)|unreleased|not yet (released|public|announced)|leaked|according to (a|an) (internal|unpublished))\b/gi,'Every fact needs a public source or official release.'],
+ ['Sensitive subject keywords','yellow',/\b(intelligence (community|collection|assessment)|SIGINT|HUMINT|cyber (operation|attack|capabilit\w*)|offensive cyber|nuclear (weapon|posture|employment)|hypersonic|directed energy|space (control|operation)s?|chemical weapon|biological weapon|classified program)\b/gi,'Named sensitive areas usually need specialized review.'],
+ ['Budget, legislation or lobbying','yellow',/\b(NDAA|appropriation(s)?|budget request|pending legislation|Congress (should|must)|urge (Congress|lawmakers|your representative)|bill (number|H\.R\.|S\.)|H\.R\.\s?\d+|S\.\s?\d+)\b/g,'Policy review will look closely; avoid urging legislative action in your official capacity.'],
+ ['Partisan or campaign language','red',/\b(vote for|re-?elect|campaign for|Democratic Party|Republican Party|GOP|super PAC|candidate for)\b/gi,'Hatch Act and DoDD 1344.10 limits may apply.'],
+ ['Endorsement or fundraising','yellow',/\b(I (recommend|endorse) (buying|using)|buy now|promo code|discount code|donate (now|today|at)|sponsored by|GoFundMe|fundraiser)\b/gi,'Endorsement and solicitation limits may apply.'],
+ ['Personal information','red',/\b\d{3}-\d{2}-\d{4}\b|\b[\w.+-]+@[\w-]+\.(mil|gov|com|org|net|edu)\b|\(?\b\d{3}\)?[-.\s]\d{3}[-.\s]\d{4}\b/g,'Remove SSNs, personal emails and phone numbers. Official contact details may also need removal.'],
+ ['Rank or official title','yellow',/\b(GEN|LTG|MG|BG|COL|LTC|MAJ|CPT|1LT|2LT|CSM|SGM|ADM|VADM|RADM|Gen\.|Lt\. Gen\.|Maj\. Gen\.|Brig\. Gen\.|Col\.|Lt\. Col\.|Commander|Commanding General|Director of)\b/g,'If this is you, add a reasonably prominent disclaimer. If it is someone else, check that quotes and attributions are public.']
+];
+
+function snippet(text,idx,len){const a=Math.max(0,idx-45),b=Math.min(text.length,idx+len+45);
+ return (a>0?'…':'')+esc(text.slice(a,idx))+'<mark>'+esc(text.slice(idx,idx+len))+'</mark>'+esc(text.slice(idx+len,b))+(b<text.length?'…':'');}
+
+function run(){
+ const out=[];const dod=val('dod');
+ if(dod==='no'){out.push({lv:'green',t:'DoD review may not apply',p:'If you are not a current DoD service member, employee or contractor writing about DoD work, DoD prepublication review generally does not apply, except for obligations you signed (for example, nondisclosure agreements for classified access, which last for life).',c:'DoDI 5230.09; SF 312'});}
+ RULES.forEach(([k,ly,lu,t,p,c])=>{const v=val(k);if(v==='yes')out.push({lv:ly,t,p,c});else if(v==='unsure')out.push({lv:lu,t:t+' (not sure)',p:'You answered "not sure." Treat this as a likely issue until you confirm. '+p,c});});
+ const text=document.getElementById('draft').value;const scan=[];
+ if(text.trim()){SCAN.forEach(([t,lv,re,note])=>{re.lastIndex=0;const hits=[];let m;while((m=re.exec(text))&&hits.length<4){hits.push(snippet(text,m.index,m[0].length));if(m[0].length===0)re.lastIndex++;}
+  if(hits.length)scan.push({lv,t,p:note,hits});});}
+ const all=out.concat(scan);const reds=all.filter(x=>x.lv==='red').length,yel=all.filter(x=>x.lv==='yellow').length;
+ const answered=document.querySelectorAll('input[type=radio]:checked').length;
+ let ov;
+ if(!answered&&!text.trim())ov={c:'lv-yellow',h:'Answer a few questions first',p:'Pick an answer for each question, or paste a draft, then run the check.'};
+ else if(reds)ov={c:'lv-red',h:`${reds} likely issue${reds>1?'s':''} to resolve before you submit`,p:'These items commonly cause a piece to be returned or held. Fix what you can, then submit for review and flag the rest to your reviewer.'};
+ else if(yel)ov={c:'lv-yellow',h:`${yel} item${yel>1?'s':''} a reviewer will look at`,p:'Nothing here is a stopper by itself. Address these items, add a disclaimer if you use your title, and submit for review.'};
+ else ov={c:'lv-green',h:'No common issues found',p:'Your answers and text did not trip the usual flags. If you are current DoD personnel writing on DoD subjects, you may still need to submit for review.'};
+ const order={red:0,yellow:1,green:2};
+ const card=x=>`<div class="find ${x.lv}"><h3><span class="tag">${x.lv==='red'?'Likely issue':x.lv==='yellow'?'Reviewer will check':'Note'}</span>${esc(x.t)}</h3><p>${esc(x.p)}</p>${x.c?`<p class="cite">${esc(x.c)}</p>`:''}${x.hits?`<ul class="hits">${x.hits.map(h=>`<li>${h}</li>`).join('')}</ul>`:''}</div>`;
+ const r=document.getElementById('report');
+ r.innerHTML=`<div class="overall ${ov.c}"><h2>${ov.h}</h2><p>${ov.p}</p></div>`+
+  (out.length?`<h2 style="margin:22px 0 6px">From your answers</h2>`+out.sort((a,b)=>order[a.lv]-order[b.lv]).map(card).join(''):'')+
+  (text.trim()?`<h2 style="margin:22px 0 6px">From your draft</h2>`+(scan.length?scan.sort((a,b)=>order[a.lv]-order[b.lv]).map(card).join(''):'<div class="find green"><h3><span class="tag">Note</span>No common warning signs found in the text</h3><p>The scan is a pattern match. A reviewer reads for meaning, context and aggregation, which no scan can do.</p></div>'):'')+
+  `<h2 style="margin:22px 0 6px">Next steps</h2><div class="find"><p>1. Fix what you can and add a disclaimer if you use your title or affiliation.<br>2. Submit to your organization's public affairs or security review office, with the outlet and your deadline.<br>3. Allow time: routine reviews often take a week or more; higher-level reviews take longer.</p></div>`+
+  `<div class="row"><button class="ghost" type="button" onclick="window.print()">Print or save as PDF</button></div>`;
+ r.classList.remove('hidden');r.scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('run').onclick=run;
+document.getElementById('reset').onclick=()=>{document.getElementById('f').reset();document.getElementById('report').classList.add('hidden');window.scrollTo({top:0,behavior:'smooth'});};
+
+function disc(){const s=document.getElementById('dsvc').value,t=document.getElementById('dtype').value;
+ const org=s?`${s}, the Department of Defense or the U.S. Government`:'the Department of Defense or the U.S. Government';
+ document.getElementById('dout').textContent=t==='social'?`Views are my own and do not represent ${org}. Following, sharing or liking is not endorsement.`:`The views expressed are those of the author and do not necessarily reflect the official policy or position of ${org}.`;}
+document.getElementById('dsvc').onchange=disc;document.getElementById('dtype').onchange=disc;disc();
+document.getElementById('dcopy').onclick=async e=>{try{await navigator.clipboard.writeText(document.getElementById('dout').textContent);e.target.textContent='Copied';setTimeout(()=>e.target.textContent='Copy disclaimer',1500);}catch(_){}};
+</script>
+</body></html>
