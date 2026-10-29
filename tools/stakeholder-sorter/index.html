@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>External Stakeholder Sorter | Brian Fickel</title>
+<meta name="description" content="A free tool for advisors: sort outside stakeholders by power, legitimacy and urgency, set the contact order and the messenger, and rescore as things change. Runs in your browser.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../../img/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../tools.css">
+<style>.learn h3{font:600 1.1rem "Libre Baskerville",Georgia,serif;color:var(--maroon)}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px}.three>div{background:var(--cream);border:1px solid var(--line);border-top:4px solid var(--maroon);border-radius:8px;padding:12px 14px}.three p{margin:6px 0;font-size:.95rem}table.types{width:100%;border-collapse:collapse;font-size:.94rem;margin-top:8px}table.types th,table.types td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}table.types th{color:var(--maroon)}@media(max-width:700px){.three{grid-template-columns:1fr}}@media print{.learn{display:none}}
+.cls{display:inline-block;font:700 .7rem/1 "Montserrat",sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:999px;background:var(--gold-soft);color:var(--maroon);margin-left:6px}
+.cls.definitive{background:#8b1c1c;color:#fff}.cls.dangerous{background:#3a1010;color:#fff}.cls.dominant,.cls.dependent{background:#e8b33a;color:#3a2600}</style>
+</head>
+<body class="tool">
+<header class="top"><div class="wrap"><a href="../../index.html"><img src="../../img/logo-mark.png" alt="BF"></a><nav><a href="../../index.html">Home</a></nav></div></header>
+<main>
+<p class="kicker">Practitioner tool &middot; Version 1 (beta)</p>
+<h1>External Stakeholder Sorter</h1>
+<p class="lede">Lawmakers, reporters, partners, community groups, advocates, critics. Sort the people outside your organization who care about an issue, decide who gets your principal&rsquo;s time first, and pick the right messenger for each.</p>
+<div class="mode"><label><input type="checkbox" id="quick"> Quick mode (hide the coaching notes)</label></div>
+<div class="notice"><strong>Never enter classified, CUI or sensitive information.</strong> Use group names or roles where you can. This page has no server and sends nothing anywhere. Your list is saved in this browser only if you ask it to be.</div>
+
+<section class="panel learn">
+<p class="kicker" style="margin-bottom:6px">Start here</p>
+<h2>The stakeholder salience model</h2>
+<p>This tool is built on the <b>stakeholder salience model</b>, published by Ronald Mitchell, Bradley Agle and Donna Wood in 1997 and still one of the most widely used ways to decide which stakeholders deserve a leader&rsquo;s attention. <i>Salience</i> means how much priority you give a stakeholder&rsquo;s claim. The model&rsquo;s answer is that salience depends on three attributes, and the more of them a stakeholder has, the higher they should sit on your list.</p>
+<div class="three">
+<div><b>Power</b><p>Can they change the outcome or impose their will? Power comes from force or the threat of it (a lawsuit, a protest, a vote), from money and resources (funding, contracts, purchasing), or from symbols and reputation (press coverage, public endorsement or criticism).</p><p class="meta">Rate it high if they could block, fund, sue, legislate or shape public opinion on this issue.</p></div>
+<div><b>Legitimacy</b><p>Is their claim proper and appropriate in the eyes of a fair observer? Legitimacy can come from law or contract, from being directly affected, or from shared norms about what&rsquo;s right. A stakeholder can have legitimacy without power, and power without legitimacy.</p><p class="meta">Rate it high if most reasonable people would say, &ldquo;They have a right to be heard on this.&rdquo;</p></div>
+<div><b>Urgency</b><p>Does their claim call for immediate attention? Urgency has two parts: it&rsquo;s time-sensitive (a deadline, a hearing, a news cycle) and it matters a great deal to them.</p><p class="meta">Rate it high only when both are true. A stakeholder who cares deeply but has no deadline is not yet urgent.</p></div>
+</div>
+<h3 style="margin-top:20px">Seven types</h3>
+<p>The three attributes overlap to make seven types of stakeholder. Those with one attribute are <b>latent</b> (low salience), two are <b>expectant</b> (moderate) and all three are <b>definitive</b> (high).</p>
+<svg viewBox="0 0 560 400" role="img" aria-label="The seven stakeholder types" style="width:100%;max-width:560px;height:auto;display:block;margin:10px auto">
+<circle cx="215" cy="155" r="110" fill="#4e1414" fill-opacity=".10" stroke="#4e1414" stroke-width="1.5"/><circle cx="345" cy="155" r="110" fill="#f2ae1c" fill-opacity=".12" stroke="#c8900f" stroke-width="1.5"/><circle cx="280" cy="260" r="110" fill="#3d6b8b" fill-opacity=".10" stroke="#3d6b8b" stroke-width="1.5"/>
+<g font-size="13" text-anchor="middle" fill="#2a1a1a"><text x="120" y="38" font-weight="700" fill="#4e1414">Power</text><text x="440" y="38" font-weight="700" fill="#a06f00">Legitimacy</text><text x="280" y="392" font-weight="700" fill="#3d6b8b">Urgency</text>
+<text x="160" y="120">Dormant</text><text x="400" y="120">Discretionary</text><text x="280" y="330">Demanding</text>
+<text x="280" y="110" font-weight="600">Dominant</text><text x="215" y="235" font-weight="600">Dangerous</text><text x="345" y="235" font-weight="600">Dependent</text><text x="280" y="190" font-weight="700" fill="#8b1c1c">Definitive</text></g>
+</svg>
+<table class="types"><tr><th>Type</th><th>Has</th><th>What it usually means</th></tr>
+<tr><td>Dormant</td><td>Power</td><td>Could act but has no reason to yet. Don&rsquo;t give them one.</td></tr>
+<tr><td>Discretionary</td><td>Legitimacy</td><td>A fair interest and no pressure. Often a willing partner.</td></tr>
+<tr><td>Demanding</td><td>Urgency</td><td>Loud and insistent, with no power or legitimate claim behind it. The classic &ldquo;mosquito.&rdquo;</td></tr>
+<tr><td>Dominant</td><td>Power + legitimacy</td><td>Expects formal attention and a seat at the table.</td></tr>
+<tr><td>Dangerous</td><td>Power + urgency</td><td>Able and eager to act, without a legitimate claim. Can turn coercive.</td></tr>
+<tr><td>Dependent</td><td>Legitimacy + urgency</td><td>A fair, pressing claim, but relies on others&rsquo; power to be heard.</td></tr>
+<tr><td>Definitive</td><td>All three</td><td>Demands immediate, direct attention from the top.</td></tr></table>
+<h3 style="margin-top:20px">Three things the model teaches</h3>
+<ul>
+<li><b>Salience changes.</b> Stakeholders gain and lose attributes. A dependent community group that wins a council member&rsquo;s support picks up power and becomes definitive overnight. That&rsquo;s why the tool asks you to rescore after every move.</li>
+<li><b>Loud isn&rsquo;t the same as important.</b> Urgency alone, without power or legitimacy, is one of the three low-salience types, even though it often generates the most noise.</li>
+<li><b>It&rsquo;s a judgment, not a formula.</b> The ratings are your perception, and your perception can be wrong. Check your ratings with someone who knows the stakeholder, and say how confident you are when you brief your principal.</li>
+</ul>
+<p class="meta">Source: Mitchell, R. K., Agle, B. R., &amp; Wood, D. J. (1997). Toward a theory of stakeholder identification and salience: Defining the principle of who and what really counts. <i>Academy of Management Review, 22</i>(4), 853&ndash;886. The stance strategies (involve, collaborate, defend, monitor) come from Savage, G. T., Nix, T. W., Whitehead, C. J., &amp; Blair, J. D. (1991), Strategies for assessing and managing organizational stakeholders, <i>Academy of Management Executive, 5</i>(2), 61&ndash;75.</p>
+<h3 style="margin-top:20px">How to use this tool</h3>
+<ol><li>Name the issue. Salience is always about a specific issue.</li><li>Add each stakeholder and rate power, legitimacy and urgency for <i>this</i> issue. Medium or high counts as having the attribute.</li><li>Add their stance and who they trust. The model tells you who matters; stance and messenger tell you how to engage them.</li><li>Sort, then work the list from the top.</li><li>After each engagement or event, save a round, update the ratings and compare.</li></ol>
+</section>
+<section class="panel">
+<h2>What&rsquo;s the issue?</h2>
+<label class="f">The issue or decision, in one line <small>"Closing the visitor center on weekends," "Our new partnership with the county."</small></label><input type="text" id="issue">
+<div class="why"><b>Why this matters.</b> Stakeholders matter in relation to an issue. A local reporter may be the most important person on one story and irrelevant on the next. Sort for this issue, and sort again when it changes.</div>
+</section>
+
+<section class="panel">
+<h2>Who has a stake?</h2>
+<p class="sub">Rate each one on the model&rsquo;s three attributes, for this issue. Use what you know, not what you fear.</p>
+<div class="why"><b>Why this matters.</b> Three questions separate the stakeholders who need your principal&rsquo;s attention from the ones who just need an answer. <b>Power:</b> can they change the outcome, through votes, money, coverage, lawsuits or partners? <b>Legitimacy:</b> would a fair observer agree their claim is reasonable? <b>Urgency:</b> is it time-sensitive, and does it matter a lot to them? Both have to be true. The loudest voice isn&rsquo;t always the one that matters.</div>
+<div id="rows"></div>
+<div class="row"><button class="ghost" type="button" id="add">+ Add a stakeholder</button><button class="primary" type="button" id="run">Sort them</button></div>
+</section>
+
+<section id="out" class="hidden" aria-live="polite" style="border:0;padding:0"></section>
+
+<section class="panel">
+<h2>After each move, rescore</h2>
+<p class="sub">Stakeholders change type. A quiet group gains a powerful ally; a deadline passes and urgency drops. Record what happened, update the ratings, and compare.</p>
+<label class="f">What just happened? <small>"Met with the senator&rsquo;s staff," "Story ran Tuesday," "Advocacy group got a council member on board."</small></label><input type="text" id="move">
+<div class="row"><button class="ghost" type="button" id="snap">Save this round</button><button class="ghost" type="button" id="cmp">Compare with last round</button></div>
+<div id="hist"></div>
+<label class="f" style="font-weight:400;margin-top:16px"><input type="checkbox" id="remember"> Remember this list in this browser (stored only on this device)</label>
+</section>
+
+<p class="credit">Built on my own time from almost 20 years of advising senior leaders. It draws on public research: Mitchell, Agle &amp; Wood (1997), &ldquo;Toward a Theory of Stakeholder Identification and Salience,&rdquo; for the seven stakeholder types; and Savage, Nix, Whitehead &amp; Blair (1991) on matching strategy to a stakeholder&rsquo;s stance.</p>
+</main>
+<footer><div class="wrap">Built by Brian Fickel on personal time, in his personal capacity. Not an official DoD or Army product, and no official endorsement is intended or implied. Provided free and as is, with no warranty; not legal, ethics or professional advice. The views expressed are my own and do not represent the Department of the Army, the Department of Defense or the U.S. Government. &middot; <a href="../../privacy.html">Privacy</a> &middot; <a href="../../terms.html">Terms</a></div></footer>
+
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$('quick').onchange=e=>document.body.classList.toggle('quick',e.target.checked);
+const LV=[['0','None'],['1','Low'],['2','Medium'],['3','High']];
+const KIND=['Elected official or staff','News media','Partner organization','Community group','Advocacy or interest group','Regulator or oversight body','Industry or vendor','Individual or online voice','Other'];
+const ST=[['support','Supportive'],['mixed','Mixed'],['oppose','Opposed'],['unknown','Don’t know']];
+const CLASS={
+ definitive:{n:'Definitive',d:'Power, legitimacy and urgency.',a:'Your top priority. Engage directly and early, at your principal’s level if the stakes call for it. Don’t let them hear about a decision secondhand.'},
+ dominant:{n:'Dominant',d:'Power and legitimacy, not yet urgent.',a:'Keep them informed through a formal, reliable channel. They expect to be consulted. Watch for urgency: one event can make them definitive overnight.'},
+ dangerous:{n:'Dangerous',d:'Power and urgency, without a legitimate claim.',a:'Don’t ignore them and don’t reward pressure. Protect your principal, document every contact, and bring in legal or security if there is any threat of coercion.'},
+ dependent:{n:'Dependent',d:'A legitimate, urgent claim, but no power of their own.',a:'Address the claim now. Groups like this borrow power, from the press, lawmakers or a powerful partner, and they become definitive when they do.'},
+ dormant:{n:'Dormant',d:'Power, but no current claim or urgency.',a:'Monitor. Keep the relationship warm and avoid giving them a reason to get involved.'},
+ discretionary:{n:'Discretionary',d:'A legitimate interest, no pressure.',a:'Good partners and potential allies. Engage when it helps you; they won’t demand it.'},
+ demanding:{n:'Demanding',d:'Urgent and loud, without power or a legitimate claim.',a:'Acknowledge them politely and answer factually. Don’t let them set your agenda or your principal’s schedule. Watch whether they gain an ally.'},
+ none:{n:'Not a stakeholder (yet)',d:'Low on all three.',a:'No action needed. Check again if the issue changes.'}};
+const RANK={definitive:7,dangerous:6,dependent:5,dominant:4,demanding:2,dormant:2,discretionary:2,none:0};
+const STRAT={support:'Involve them. Ask them to speak up, co-sign or vouch for you.',mixed:'Collaborate. Bring them into the solution so their concerns shape it.',oppose:'Defend. Answer their concerns on the record, reduce what they depend on you for, and don’t argue in public.',unknown:'Find out where they stand before you need them.'};
+function row(d={}){const r=document.createElement('div');r.className='item';
+ r.innerHTML=`<div class="top"><input type="text" class="nm" placeholder="Stakeholder (e.g., County commissioners)" value="${esc(d.nm||'')}"><button class="x" type="button" title="Remove">&times;</button></div>
+ <div class="grid4"><label>Type<select class="kind">${KIND.map(k=>`<option${d.kind===k?' selected':''}>${k}</option>`).join('')}</select></label>
+ ${[['pw','Power','Can change the outcome'],['lg','Legitimacy','A fair observer would back their claim'],['ur','Urgency','Needs an answer now; cares a lot']].map(([k,l,h])=>`<label>${l}<small>${h}</small><select class="${k}">${LV.map(([v,t])=>`<option value="${v}"${(d[k]??'1')==v?' selected':''}>${t}</option>`).join('')}</select></label>`).join('')}</div>
+ <div class="grid4"><label>Stance<select class="st">${ST.map(([v,t])=>`<option value="${v}"${(d.st||'unknown')==v?' selected':''}>${t}</option>`).join('')}</select></label>
+ <label>Who they trust<small>The best messenger</small><input type="text" class="msg" value="${esc(d.msg||'')}"></label>
+ <label class="cb"><input type="checkbox" class="loud"${d.loud?' checked':''}> Loudest or most visible voice</label>
+ <label class="cb"><input type="checkbox" class="ally"${d.ally?' checked':''}> Has a powerful ally</label></div>`;
+ r.querySelector('.x').onclick=()=>r.remove();$('rows').appendChild(r);}
+$('add').onclick=()=>row();
+const read=()=>[...document.querySelectorAll('#rows .item')].map(r=>({nm:r.querySelector('.nm').value.trim(),kind:r.querySelector('.kind').value,pw:+r.querySelector('.pw').value,lg:+r.querySelector('.lg').value,ur:+r.querySelector('.ur').value,st:r.querySelector('.st').value,msg:r.querySelector('.msg').value.trim(),loud:r.querySelector('.loud').checked,ally:r.querySelector('.ally').checked})).filter(o=>o.nm);
+function classify(s){const P=s.pw>=2,L=s.lg>=2,U=s.ur>=2;
+ return P&&L&&U?'definitive':P&&L?'dominant':P&&U?'dangerous':L&&U?'dependent':P?'dormant':L?'discretionary':U?'demanding':'none';}
+function analyze(S){return S.map(s=>{const c=classify(s);return{...s,c,score:RANK[c]*10+s.pw+s.lg+s.ur}}).sort((a,b)=>b.score-a.score);}
+function tier(c){return['definitive','dangerous','dependent'].includes(c)?'Now':c==='dominant'?'Next':'Monitor';}
+function venn(A){const W=520,H=380,cs=[[200,150,'Power'],[320,150,'Legitimacy'],[260,250,'Urgency']],pos={dormant:[150,110],discretionary:[370,110],demanding:[260,320],dominant:[260,120],dangerous:[200,215],dependent:[320,215],definitive:[260,180],none:[460,350]};
+ const by={};A.forEach(a=>(by[a.c]=by[a.c]||[]).push(a.nm));
+ const labels=Object.entries(by).map(([c,ns])=>{const[x,y]=pos[c];return ns.slice(0,4).map((n,i)=>`<text x="${x}" y="${y+i*14}" font-size="11.5" text-anchor="middle" fill="#2a1a1a" font-weight="${c==='definitive'?700:400}">${esc(n.length>24?n.slice(0,23)+"…":n)}</text>`).join('')+(ns.length>4?`<text x="${x}" y="${y+56}" font-size="11" text-anchor="middle" fill="#6d5f5a">+${ns.length-4} more</text>`:'')}).join('');
+ return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Stakeholders by power, legitimacy and urgency" style="width:100%;max-width:560px;height:auto;display:block;margin:auto">
+ ${cs.map(([x,y,l],i)=>`<circle cx="${x}" cy="${y}" r="105" fill="${['#4e1414','#f2ae1c','#3d6b8b'][i]}" fill-opacity=".10" stroke="${['#4e1414','#c8900f','#3d6b8b'][i]}" stroke-width="1.5"/>`).join('')}
+ <text x="110" y="40" font-size="13" font-weight="700" fill="#4e1414">Power</text><text x="400" y="40" font-size="13" font-weight="700" fill="#a06f00" text-anchor="end">Legitimacy</text><text x="260" y="372" font-size="13" font-weight="700" fill="#3d6b8b" text-anchor="middle">Urgency</text>${labels}</svg>`;}
+$('run').onclick=()=>{const S=read();if(!S.length){$('out').innerHTML='<div class="flag red">Add at least one stakeholder.</div>';$('out').classList.remove('hidden');return;}
+ const A=analyze(S),F=[];
+ A.filter(a=>a.loud&&a.pw<2&&a.lg<2).forEach(a=>F.push(['',`${a.nm} is loud but low on power and legitimacy. Loud isn’t legitimate. Answer them; don’t let them set the order.`]));
+ A.filter(a=>a.c==='dependent'&&a.ally).forEach(a=>F.push(['red',`${a.nm} has a legitimate, urgent claim and a powerful ally. Treat them as definitive now.`]));
+ A.filter(a=>tier(a.c)==='Now'&&!a.msg).forEach(a=>F.push(['',`No messenger for ${a.nm}. Who do they trust? It may not be your principal.`]));
+ A.filter(a=>a.c==='dangerous').forEach(a=>F.push(['red',`${a.nm} has power and urgency without a legitimate claim. Coordinate with legal before engaging.`]));
+ const unk=A.filter(a=>a.st==='unknown'&&tier(a.c)!=='Monitor');if(unk.length)F.push(['',`Stance unknown for ${unk.map(a=>a.nm).join(', ')}. Find out before your principal engages.`]);
+ const iss=$('issue').value.trim();
+ $('out').innerHTML=`<div class="brief" id="mainbrief"><h3>Stakeholder map${iss?': '+esc(iss):''}</h3><p class="meta">${new Date().toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})}</p>
+ ${venn(A)}
+ ${['Now','Next','Monitor'].map(t=>{const g=A.filter(a=>tier(a.c)===t);return g.length?`<h4>${t==='Now'?'Engage now':t==='Next'?'Engage next':'Monitor'}</h4><ol>${g.map(a=>`<li><b>${esc(a.nm)}</b> <span class="cls ${a.c}">${CLASS[a.c].n}</span> <span class="meta">${esc(a.kind)}</span><br>${esc(CLASS[a.c].a)}<br><span class="meta">${esc(STRAT[a.st])}${a.msg?' Messenger: '+esc(a.msg)+'.':''}</span></li>`).join('')}</ol>`:''}).join('')}
+ <h4>The seven types</h4><p class="meta">${Object.entries(CLASS).filter(([k])=>k!=='none').map(([k,v])=>`<b>${v.n}:</b> ${esc(v.d)}`).join(' ')}</p></div>
+ <div class="flags">${F.length?F.map(([c,m])=>`<div class="flag ${c}">${esc(m)}</div>`).join(''):'<div class="flag ok">No gaps found.</div>'}</div>
+ <div class="row"><button class="ghost" type="button" onclick="window.print()">Print or save as PDF</button></div>`;
+ $('out').classList.remove('hidden');$('out').scrollIntoView({behavior:'smooth'});save();};
+
+let rounds=[];
+const histList=()=>rounds.length?`<h4 style="margin:14px 0 4px">Rounds</h4><ol class="meta">${rounds.map(r=>`<li>${esc(r.when)}${r.move?': '+esc(r.move):''}</li>`).join('')}</ol>`:'';
+$('snap').onclick=()=>{rounds.push({when:new Date().toLocaleString(),move:$('move').value.trim(),data:read()});$('move').value='';$('hist').innerHTML=histList();save();};
+$('cmp').onclick=()=>{if(!rounds.length){$('hist').innerHTML='<div class="flag">Save a round first, then change the ratings and compare.</div>';return;}
+ const prev=Object.fromEntries(analyze(rounds[rounds.length-1].data).map(a=>[a.nm,a])),now=analyze(read()),ch=[];
+ now.forEach(a=>{const b=prev[a.nm];if(!b){ch.push(`${a.nm}: new (${CLASS[a.c].n}).`);return;}
+  if(a.c!==b.c)ch.push(`${a.nm}: ${CLASS[b.c].n} → ${CLASS[a.c].n}. ${tier(a.c)!==tier(b.c)?'Moves to '+(tier(a.c)==='Now'?'engage now':tier(a.c)==='Next'?'engage next':'monitor')+'.':''}`);
+  if(a.st!==b.st)ch.push(`${a.nm}: stance ${b.st} → ${a.st}.`);});
+ Object.keys(prev).forEach(n=>{if(!now.find(a=>a.nm===n))ch.push(n+': removed.')});
+ $('hist').innerHTML=`<div class="brief" style="margin-top:12px;border-width:1px"><h4 style="margin-top:0">Since the last round</h4>${ch.length?'<ul>'+ch.map(c=>`<li>${esc(c)}</li>`).join('')+'</ul>':'<p>No one changed type. If you expected movement, check whether you reached the right people through the right messenger.</p>'}</div>`+histList();};
+
+const KEY='stakeholder_sorter';
+function save(){try{if($('remember').checked)localStorage.setItem(KEY,JSON.stringify({issue:$('issue').value,rows:read(),rounds}));else localStorage.removeItem(KEY);}catch(_){}}
+$('remember').onchange=save;
+try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o){$('issue').value=o.issue||'';(o.rows||[]).forEach(row);rounds=o.rounds||[];$('remember').checked=true;$('hist').innerHTML=histList();}}catch(_){}
+if(!document.querySelector('#rows .item')){row();row();row();}
+</script>
+</body></html>
