@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mapping the Organizational Terrain | Brian Fickel</title>
+<meta name="description" content="A free tool for advisors: map who really has power and influence inside your organization, where they stand, and who to see first. Runs in your browser.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../../img/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../tools.css">
+<style>.learn h3{font:600 1.1rem "Libre Baskerville",Georgia,serif;color:var(--maroon)}table.types{width:100%;border-collapse:collapse;font-size:.94rem;margin-top:8px}table.types th,table.types td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}table.types th{color:var(--maroon)}@media print{.learn{display:none}}</style>
+</head>
+<body class="tool">
+<header class="top"><div class="wrap"><a href="../../index.html"><img src="../../img/logo-mark.png" alt="BF"></a><nav><a href="../../index.html">Home</a></nav></div></header>
+<main>
+<p class="kicker">Practitioner tool &middot; Version 1 (beta)</p>
+<h1>Mapping the Organizational Terrain</h1>
+<p class="lede">The org chart shows who&rsquo;s supposed to have power. This shows who actually does. Map the people inside your organization who can move, shape or quietly stop your effort, then decide who to see first and who should carry the message.</p>
+<div class="mode"><label><input type="checkbox" id="quick"> Quick mode (hide the coaching notes)</label></div>
+<div class="notice"><strong>Use roles or initials, not names,</strong> and never enter classified, CUI or sensitive information. This page has no server and sends nothing anywhere. Your map is saved in this browser only if you ask it to be.</div>
+
+<section class="panel learn">
+<p class="kicker" style="margin-bottom:6px">Start here</p>
+<h2>Why the org chart isn&rsquo;t the map</h2>
+<p>Every organization has two structures. The formal one is on the org chart: who reports to whom and who signs what. The informal one is how work actually gets done: who people go to for advice, who they trust, and who quietly shapes a decision before it reaches the boss. New advisors tend to work the chart. Experienced ones work the terrain. This tool helps you map it, using three well-established ideas.</p>
+<h3>1. Power has more than one source</h3>
+<p>Social psychologists John French and Bertram Raven identified the bases of power in 1959, and Raven later added information. A person can hold several at once, and someone with little formal authority can be strong on the others.</p>
+<table class="types"><tr><th>Source</th><th>What it looks like</th><th>Where it shows up in this tool</th></tr>
+<tr><td>Legitimate</td><td>Authority that comes with the position</td><td>Formal authority</td></tr>
+<tr><td>Reward and coercive</td><td>Control over what people get or lose: money, assignments, evaluations</td><td>Controls resources</td></tr>
+<tr><td>Expert</td><td>Knowledge others depend on</td><td>Informal influence</td></tr>
+<tr><td>Referent</td><td>Respect and personal loyalty; people want to follow them</td><td>Informal influence</td></tr>
+<tr><td>Information</td><td>Control of what others know and when, including the boss&rsquo;s calendar and in-box</td><td>Controls information; access to the principal</td></tr></table>
+<h3 style="margin-top:20px">2. Influence runs through informal networks</h3>
+<p>David Krackhardt and Jeffrey Hanson showed that informal networks, especially the people others go to for advice and the people they trust, often explain how an organization really behaves better than its formal chart does. Watch who drafts the first version, who people check with before they commit, and who can slow a decision without ever saying no. Those people may be two levels below the decision-maker, and they may be the most important stop you make.</p>
+<h3 style="margin-top:20px">3. Stance tells you how to engage</h3>
+<p>Grant Savage and colleagues paired each stakeholder&rsquo;s potential to help with their potential to threaten. The strategy follows from where someone sits: involve supporters, collaborate with those who could go either way, defend against opponents, and monitor everyone else. The map below uses the same logic. Powerful supporters become your messengers. Powerful skeptics get an early, private conversation before any group meeting.</p>
+<h3 style="margin-top:20px">How to rate</h3>
+<ul><li><b>Rate for this effort.</b> Someone central on budget may not matter on a communication question.</li><li><b>Rate what you&rsquo;ve seen,</b> not what the title implies. If you don&rsquo;t know, say so; unknowns are a finding.</li><li><b>A quiet veto</b> is anyone who can slow or stop the effort without formally deciding: the person who controls the calendar, the staffing, the legal review or the boss&rsquo;s ear.</li><li><b>Use roles or initials.</b> This is a working map for you, not a document to circulate.</li></ul>
+<p class="meta">Sources: French, J. R. P., &amp; Raven, B. (1959). The bases of social power. In D. Cartwright (Ed.), <i>Studies in Social Power</i>. Raven, B. H. (1965). Social influence and power. Krackhardt, D., &amp; Hanson, J. R. (1993). Informal networks: The company behind the chart. <i>Harvard Business Review, 71</i>(4), 104&ndash;111. Savage, G. T., Nix, T. W., Whitehead, C. J., &amp; Blair, J. D. (1991). Strategies for assessing and managing organizational stakeholders. <i>Academy of Management Executive, 5</i>(2), 61&ndash;75. Pfeffer, J. (1992). <i>Managing with Power</i>. Harvard Business School Press.</p>
+</section>
+<section class="panel">
+<h2>What are you trying to move?</h2>
+<label class="f">Your effort, in one line <small>"Get approval for a new engagement plan," "Change how we brief the board."</small></label><input type="text" id="effort">
+<div class="why"><b>Why this matters.</b> Influence is specific to the issue. The person who runs the budget may not matter on a messaging question, and the quiet deputy who has drafted every statement for five years might matter a lot. Map the terrain for this effort, not in general.</div>
+</section>
+
+<section class="panel">
+<h2>Who&rsquo;s on the terrain?</h2>
+<p class="sub">Add each person or office that could help, shape or block this. Rate only what you&rsquo;ve seen.</p>
+<div class="why"><b>Why this matters.</b> Power inside an organization comes from more than position: formal authority, the respect of peers, access to the boss, and control of money, people, information or the calendar. Someone weak on paper can be strong in practice, and the reverse. Watch who drafts the first version, who people check with before they commit, and who can slow a decision without ever saying no.</div>
+<div id="rows"></div>
+<div class="row"><button class="ghost" type="button" id="add">+ Add a person or office</button><button class="primary" type="button" id="run">Map the terrain</button></div>
+</section>
+
+<section id="out" class="hidden" aria-live="polite" style="border:0;padding:0"></section>
+
+<section class="panel" id="moves">
+<h2>After each move, rescore</h2>
+<p class="sub">Terrain shifts every time you engage someone. Record what you did, update the ratings above, and compare.</p>
+<label class="f">What did you just do? <small>"Pre-briefed the CFO," "Deputy agreed to carry the message."</small></label><input type="text" id="move">
+<div class="row"><button class="ghost" type="button" id="snap">Save this round</button><button class="ghost" type="button" id="cmp">Compare with last round</button></div>
+<div id="hist"></div>
+<label class="f" style="font-weight:400;margin-top:16px"><input type="checkbox" id="remember"> Remember this map in this browser (stored only on this device)</label>
+</section>
+
+<p class="credit">Built on my own time from almost 20 years of advising senior leaders. It draws on public research: Mitchell, Agle &amp; Wood (1997) on stakeholder salience; Savage, Nix, Whitehead &amp; Blair (1991) on stakeholder stance; French &amp; Raven (1959) on the bases of power; Krackhardt &amp; Hanson (1993) on informal networks; and Pfeffer (1992), <em>Managing with Power</em>.</p>
+</main>
+<footer><div class="wrap">Built by Brian Fickel on personal time, in his personal capacity. Not an official DoD or Army product, and no official endorsement is intended or implied. Provided free and as is, with no warranty; not legal, ethics or professional advice. The views expressed are my own and do not represent the Department of the Army, the Department of Defense or the U.S. Government. &middot; <a href="../../privacy.html">Privacy</a> &middot; <a href="../../terms.html">Terms</a></div></footer>
+
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$('quick').onchange=e=>document.body.classList.toggle('quick',e.target.checked);
+const LV=[['0','None'],['1','Low'],['2','Medium'],['3','High']];
+const DIM=[['auth','Formal authority','Signs, approves or directs'],['infl','Informal influence','Others seek their view or follow their lead'],['acc','Access to the principal','Gets time with, or controls access to, the boss'],['ctl','Controls resources or information','Budget, people, data, the calendar']];
+const ST=[['champion','Champion'],['support','Supportive'],['neutral','Neutral'],['skeptic','Skeptical'],['oppose','Opposed'],['unknown','Don’t know']];
+const STV={champion:2,support:1,neutral:0,skeptic:-1,oppose:-2,unknown:0};
+function row(d={}){const r=document.createElement('div');r.className='item';
+ r.innerHTML=`<div class="top"><input type="text" class="nm" placeholder="Role or initials (e.g., Deputy CFO)" value="${esc(d.nm||'')}"><button class="x" type="button" title="Remove">&times;</button></div>
+ <div class="grid4">${DIM.map(([k,l,h])=>`<label>${l}<small>${h}</small><select class="${k}">${LV.map(([v,t])=>`<option value="${v}"${(d[k]??'1')==v?' selected':''}>${t}</option>`).join('')}</select></label>`).join('')}</div>
+ <div class="grid4"><label>Stance on your effort<select class="st">${ST.map(([v,t])=>`<option value="${v}"${(d.st||'unknown')==v?' selected':''}>${t}</option>`).join('')}</select></label>
+ <label>How much it affects them<select class="stake">${[['1','A little'],['2','Moderately'],['3','A lot']].map(([v,t])=>`<option value="${v}"${(d.stake||'2')==v?' selected':''}>${t}</option>`).join('')}</select></label>
+ <label>Who they listen to<small>Their likely messenger</small><input type="text" class="msg" value="${esc(d.msg||'')}"></label>
+ <label class="cb"><input type="checkbox" class="veto"${d.veto?' checked':''}> Can quietly slow or stop it</label></div>`;
+ r.querySelector('.x').onclick=()=>r.remove();$('rows').appendChild(r);}
+$('add').onclick=()=>row();
+const read=()=>[...document.querySelectorAll('#rows .item')].map(r=>{const o={nm:r.querySelector('.nm').value.trim()};DIM.forEach(([k])=>o[k]=+r.querySelector('.'+k).value);o.st=r.querySelector('.st').value;o.stake=+r.querySelector('.stake').value;o.msg=r.querySelector('.msg').value.trim();o.veto=r.querySelector('.veto').checked;return o}).filter(o=>o.nm);
+
+function analyze(P){return P.map(p=>{const power=p.auth+p.infl+p.acc+p.ctl;const tags=[];
+ if(p.auth>=2)tags.push('Decision-maker');
+ if(p.infl>=2&&p.auth<=1)tags.push('Hidden influencer');
+ if(p.acc>=2&&p.auth<=1)tags.push('Gatekeeper');
+ if(p.veto)tags.push('Quiet veto');
+ if(p.ctl>=2&&p.auth<=1)tags.push('Resource holder');
+ const hi=power>=6||p.veto;const sv=STV[p.st];let move;
+ if(p.st==='unknown')move='Find out where they stand before you need them. Ask someone they trust, or ask them directly.';
+ else if(hi&&sv>0)move=p.st==='champion'?'Ask them to carry the message, or to stand next to you when you do.':'Turn support into action: ask for one specific thing, such as a word with the principal or a seat in the meeting.';
+ else if(hi&&sv<0)move='See them early and privately, before any group meeting. Learn what they’re protecting and adjust what you can. Don’t surprise them in front of others.';
+ else if(hi)move='Win them over before the decision. Show what’s in it for their part of the organization.';
+ else if(sv<0)move='Hear them out and answer the concern, but don’t let them set the pace.';
+ else move='Keep them informed. Their reaction is an early signal of how the wider organization will take it.';
+ return {...p,power,tags,hi,sv,move};});}
+function order(A){return [...A].sort((a,b)=>{const pa=(a.veto?3:0)+a.power+(a.sv<0?2:0)+(a.st==='unknown'?1:0),pb=(b.veto?3:0)+b.power+(b.sv<0?2:0)+(b.st==='unknown'?1:0);return pb-pa;});}
+function plot(A){const W=640,H=360,m=44;const x=sv=>m+(sv+2)/4*(W-2*m),y=pw=>H-m-pw/12*(H-2*m);
+ const pts=A.map((a,i)=>{const cx=x(a.sv)+((i%3)-1)*14,cy=y(a.power);return `<g><circle cx="${cx}" cy="${cy}" r="${7+a.stake*2}" fill="${a.sv>0?'#3d8b4a':a.sv<0?'#b02a2a':'#9a8f86'}" fill-opacity=".8" stroke="${a.veto?'#4e1414':'#fff'}" stroke-width="${a.veto?3:1.5}"/><text x="${cx>W*0.65?cx-12:cx+12}" y="${cy+4}" font-size="12" fill="#2a1a1a" text-anchor="${cx>W*0.65?'end':'start'}">${esc(a.nm.slice(0,22))}</text></g>`}).join('');
+ return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Terrain map: power versus stance" style="width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:10px">
+ <rect x="${W/2}" y="${m}" width="${W/2-m}" height="${(H-2*m)/2}" fill="#eef6ef"/><rect x="${m}" y="${m}" width="${W/2-m}" height="${(H-2*m)/2}" fill="#fbefef"/>
+ <line x1="${m}" y1="${H-m}" x2="${W-m}" y2="${H-m}" stroke="#bbb"/><line x1="${W/2}" y1="${m}" x2="${W/2}" y2="${H-m}" stroke="#ddd" stroke-dasharray="4 4"/><line x1="${m}" y1="${m}" x2="${m}" y2="${H-m}" stroke="#bbb"/>
+ <text x="${m}" y="${H-14}" font-size="12" fill="#6d5f5a">Opposed</text><text x="${W-m}" y="${H-14}" font-size="12" fill="#6d5f5a" text-anchor="end">Champion</text>
+ <text x="${m+6}" y="${m+16}" font-size="12" fill="#8b1c1c">Engage early, privately</text><text x="${W-m-6}" y="${m+16}" font-size="12" fill="#2f6b3a" text-anchor="end">Your messengers</text>
+ <text x="14" y="${H/2}" font-size="12" fill="#6d5f5a" transform="rotate(-90 14 ${H/2})" text-anchor="middle">Power and influence</text>${pts}</svg>
+ <p class="meta">Bigger circle: the more it affects them. Dark ring: can quietly stop it.</p>`;}
+let last=null;
+$('run').onclick=()=>{const P=read();if(!P.length){$('out').innerHTML='<div class="flag red">Add at least one person or office.</div>';$('out').classList.remove('hidden');return;}
+ const A=analyze(P),O=order(A),F=[];last=A;
+ const champs=A.filter(a=>a.hi&&a.sv>0);if(!champs.length)F.push(['red','No powerful supporter yet. Before you take this to the principal, find at least one person with real influence who will back it.']);
+ A.filter(a=>a.veto&&a.sv<=0).forEach(a=>F.push(['red',a.nm+' can quietly stop this and isn’t on your side yet. See them first.']));
+ A.filter(a=>a.tags.includes('Hidden influencer')).forEach(a=>F.push(['',a.nm+' has more influence than their title suggests. Don’t skip them because of where they sit on the chart.']));
+ A.filter(a=>a.auth>=2&&a.infl<=1).forEach(a=>F.push(['',a.nm+' has the title but less real pull. Their sign-off matters; their endorsement may not move others.']));
+ const unk=A.filter(a=>a.st==='unknown');if(unk.length)F.push(['',unk.length+' stance(s) unknown: '+unk.map(a=>a.nm).join(', ')+'. Unknowns tend to break late.']);
+ if(!A.some(a=>a.tags.includes('Gatekeeper')||a.acc>=3))F.push(['','No one rated high on access to the principal. Who controls the calendar and the in-box? That person shapes timing.']);
+ O.filter(a=>a.hi&&!a.msg).slice(0,3).forEach(a=>F.push(['','No messenger identified for '+a.nm+'. Who do they listen to?']));
+ const eff=$('effort').value.trim();
+ $('out').innerHTML=`<div class="brief" id="mainbrief"><h3>Terrain map${eff?': '+esc(eff):''}</h3><p class="meta">${new Date().toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})}</p>
+ ${plot(A)}
+ <h4>Who to see, in order</h4><ol>${O.map(a=>`<li><b>${esc(a.nm)}</b>${a.tags.length?' <span class="meta">('+a.tags.join(', ')+')</span>':''}<br>${esc(a.move)}${a.msg?'<br><span class="meta">Messenger: '+esc(a.msg)+'</span>':''}</li>`).join('')}</ol></div>
+ <div class="flags">${F.length?F.map(([c,m])=>`<div class="flag ${c}">${esc(m)}</div>`).join(''):'<div class="flag ok">No gaps found in the map.</div>'}</div>
+ <div class="row"><button class="ghost" type="button" onclick="window.print()">Print or save as PDF</button></div>`;
+ $('out').classList.remove('hidden');$('out').scrollIntoView({behavior:'smooth'});save();};
+
+// rounds
+let rounds=[];
+function drawHist(){$('hist').innerHTML=rounds.length?`<h4 style="margin:14px 0 4px">Rounds</h4><ol class="meta">${rounds.map(r=>`<li>${esc(r.when)}${r.move?': '+esc(r.move):''}</li>`).join('')}</ol>`:'';}
+$('snap').onclick=()=>{rounds.push({when:new Date().toLocaleString(),move:$('move').value.trim(),data:read()});$('move').value='';drawHist();save();};
+$('cmp').onclick=()=>{if(!rounds.length){$('hist').innerHTML+='<div class="flag">Save a round first, then change the ratings and compare.</div>';return;}
+ const prev=Object.fromEntries(analyze(rounds[rounds.length-1].data).map(a=>[a.nm,a])),now=analyze(read()),ch=[];
+ now.forEach(a=>{const b=prev[a.nm];if(!b){ch.push(a.nm+': new on the map.');return;}
+  if(a.st!==b.st)ch.push(`${a.nm}: stance ${b.st} → ${a.st}.`);
+  if(a.power!==b.power)ch.push(`${a.nm}: power ${b.power} → ${a.power} of 12.`);
+  if(a.veto!==b.veto)ch.push(`${a.nm}: ${a.veto?'can now':'can no longer'} quietly stop it.`);});
+ Object.keys(prev).forEach(n=>{if(!now.find(a=>a.nm===n))ch.push(n+': removed from the map.')});
+ $('hist').innerHTML=`<div class="brief" style="margin-top:12px;border-width:1px"><h4 style="margin-top:0">Since the last round</h4>${ch.length?'<ul>'+ch.map(c=>`<li>${esc(c)}</li>`).join('')+'</ul>':'<p>No change. If your last move didn’t shift anyone, rethink the move or the messenger.</p>'}</div>`;drawHist2();};
+function drawHist2(){const h=$('hist');const list=rounds.length?`<h4 style="margin:14px 0 4px">Rounds</h4><ol class="meta">${rounds.map(r=>`<li>${esc(r.when)}${r.move?': '+esc(r.move):''}</li>`).join('')}</ol>`:'';h.innerHTML+=list;}
+
+// storage (opt-in)
+const KEY='terrain_map';
+function save(){try{if($('remember').checked)localStorage.setItem(KEY,JSON.stringify({effort:$('effort').value,rows:read(),rounds}));else localStorage.removeItem(KEY);}catch(_){}}
+$('remember').onchange=save;
+try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o){$('effort').value=o.effort||'';(o.rows||[]).forEach(row);rounds=o.rounds||[];$('remember').checked=true;drawHist();}}catch(_){}
+if(!document.querySelector('#rows .item')){row();row();row();}
+</script>
+</body></html>
